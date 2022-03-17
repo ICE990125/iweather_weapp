@@ -4,14 +4,18 @@
   navLeftIcon="back"
   navTitle="预警详情"
   bind:left="back"
-  textColor="{{color === '#fff'? '#000': '#fff'}}"
+  textColor="{{color}}"
 />
 
 <view
-  class="warn-container"
-  style="background-color: {{color}};padding-top: {{paddingTop}}px;color: {{color === '#fff'? '#000': '#fff'}}"
+  class="container"
+  style="background-color: {{bgColor}};padding-top: {{paddingTop}}px;color: {{color}}"
 >
-  <view>这里放icon</view>
-  <view class="warn">{{warn}}</view>
-  <view>{{desc}}</view>
+  <view class="waring-container">
+    <view>
+      <disasters name="{{type}}" size="50" />
+    </view>
+    <view class="warn">{{warn}}</view>
+    <view>{{desc}}</view>
+  </view>
 </view>

@@ -1,9 +1,8 @@
-.warn-container {
+.container {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
   padding: 0 2em;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,4 +13,13 @@
   font-weight: bold;
   font-size: 1.5em;
   margin: 1em 0;
+}
+
+.waring-container {
+  border-radius: 10px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

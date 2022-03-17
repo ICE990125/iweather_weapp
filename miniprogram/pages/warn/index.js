@@ -1,8 +1,10 @@
 Page({
   data: {
-    color: '', // 预警颜色
+    bgColor: '', // 预警颜色
+    color: '', // 字体颜色
     warn: '', // 预警
     desc: '', // 预警详细信息
+    type: 0, // 预警类型
   },
 
   onLoad(options) {
@@ -14,11 +16,13 @@ Page({
     const index = options.index;
     const waring = app.globalData[uuid].warings[index];
 
+    const bgColor = waring.bgColor;
     const color = waring.color;
     const warn = `${waring.typeName}${waring.level}预警`;
     const desc = waring.text;
+    const type = waring.type;
 
-    this.setData({ color, warn, desc, paddingTop });
+    this.setData({ bgColor, color, warn, desc, paddingTop, type });
   },
 
   back() {
