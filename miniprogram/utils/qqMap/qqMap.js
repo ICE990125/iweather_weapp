@@ -1,4 +1,9 @@
+/*************************
+ *       腾讯地图         *
+ *************************/
+
 import qqMap from './qqmap-wx-jssdk';
+import { appKey } from '../../appKey';
 
 class QQMap {
   constructor(key) {
@@ -51,4 +56,4 @@ class QQMap {
 }
 
 // 导出地图实例
-export default new QQMap('4PSBZ-7OORJ-IF3FV-F77AM-3NN56-WCBOW');
+export default new QQMap(appKey.qqMap);
