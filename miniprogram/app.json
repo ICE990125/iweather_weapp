@@ -4,7 +4,8 @@
         "pages/aqi/index",
         "pages/warn/index",
         "pages/like/index",
-        "pages/search/index"
+        "pages/search/index",
+        "pages/test/test"
     ],
     "lazyCodeLoading": "requiredComponents",
     "usingComponents": {
