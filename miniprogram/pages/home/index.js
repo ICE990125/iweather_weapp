@@ -59,6 +59,7 @@ Page({
   },
   getQweather(location, kwargs) {
     // 获取天气
+    app.globalData.qweather.setMockStatus(false);
     app.globalData.qweather
       .getAllweather(location)
       .then(res => {

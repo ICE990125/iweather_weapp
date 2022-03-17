@@ -63,16 +63,16 @@ export class Line extends Canvas {
     // 绘制坐标轴网格
     this.drawAxisGrid();
 
-    // 绘制坐标轴
-    this.drawAxis();
-
     // 绘制曲线
     series.forEach(el => {
       if (el.data instanceof Array) {
-        const path = this.createBezierLine(el);
-        this.drawBackground(path, el); // 背景
+        this.BezierLine(el); // 贝塞尔曲线
+        this.drawBackground(el); // 背景
       }
     });
+
+    // 绘制坐标轴
+    this.drawAxis();
   }
 
   // 绘制坐标网格
@@ -141,20 +141,18 @@ export class Line extends Canvas {
   }
 
   // 画曲线图背景
-  drawBackground(path, el) {
+  drawBackground(el) {
     const { lineStyle } = el;
 
     if (typeof lineStyle?.backgroundColor !== 'undefined') {
       const { data } = el;
-      const path_ = this.canvas.createPath2D(path);
-
       // 基线终点
-      path_.lineTo(this.startX + (data.length - 1) * this.diffX, this.baseY);
+      this.ctx.lineTo(this.startX + (data.length - 1) * this.diffX, this.baseY);
       // 基线起点
-      path_.lineTo(this.startX, this.baseY);
+      this.ctx.lineTo(this.startX, this.baseY);
 
       this.ctx.fillStyle = lineStyle.backgroundColor;
-      this.ctx.fill(path_);
+      this.ctx.fill();
     }
   }
 
@@ -187,18 +185,18 @@ export class Line extends Canvas {
   }
 
   /**
-   * 创建贝塞尔曲线路径
+   * 绘制贝塞尔曲线路径
    * @param {*} ctx
    * @param {*} data
    * @param {*} options
    */
-  createBezierLine(el) {
+  BezierLine(el) {
     const { data } = el;
-    const path = this.canvas.createPath2D();
 
     const { startX, baseY, diffY, diffX } = this;
 
-    path.moveTo(this.startX, this.baseY - data[0] * this.diffY);
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.startX, this.baseY - data[0] * this.diffY);
 
     data.forEach((e, i) => {
       let curPoint, prePoint, nextPoint1, nextPoint2, x, y;
@@ -241,7 +239,7 @@ export class Line extends Canvas {
         nextPoint2
       );
 
-      path.bezierCurveTo(
+      this.ctx.bezierCurveTo(
         controlPointA.x,
         controlPointA.y,
         controlPointB.x,
@@ -250,7 +248,5 @@ export class Line extends Canvas {
         nextPoint1.y
       );
     });
-
-    return path;
   }
 }
