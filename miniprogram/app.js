@@ -1,7 +1,5 @@
-import qqMap from './utils/location/qqMap/qqMap'; // 地图实例
-import qweather from './utils/weather/qweather'; // 和风天气实例
-import Geo from './utils/location/Geo'; // 和风天气 Geo 实例
-import openWeather from './utils/weather/openweather';
+import qqMap from './utils/qqMap/qqMap'; // 腾讯地图
+import qweather from './utils/weather/qweather'; // 和风天气
 import { getNavBarInfo } from '/utils/navInfo';
 import './utils/time';
 
@@ -21,11 +19,9 @@ App({
     this.globalData = {
       statusBarHeight,
       capsuleLeft,
-      openWeather,
       navHeight,
       qweather,
       qqMap,
-      Geo,
     };
   },
 });

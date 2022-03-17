@@ -1,0 +1,12 @@
+<!-- 雨天 -->
+<view class="container rain-bg">
+  <view class="rain">
+    <!-- 雨滴 -->
+    <view
+      class="rain-drop"
+      wx:for="{{rain}}"
+      wx:key="index"
+      style="animation-duration: {{duration}}s; animation-delay: {{item.delay}}s; left: {{item.left}}%; background: var(--var-rain-color-{{item.color}});"
+    ></view>
+  </view>
+</view>

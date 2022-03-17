@@ -4,7 +4,8 @@
         "pages/aqi/index",
         "pages/warn/index",
         "pages/like/index",
-        "pages/search/index"
+        "pages/search/index",
+        "pages/test/test"
     ],
     "lazyCodeLoading": "requiredComponents",
     "usingComponents": {
@@ -12,6 +13,7 @@
         "card": "/components/card/index",
         "drawer": "/components/drawer/index",
         "qweather": "/assets/icons/qweather/qweather",
+        "disasters": "/assets/icons/disasters/disasters",
         "life": "/assets/icons/life/life",
         "common": "/assets/icons/common/common",
         "aqi": "/assets/icons/aqi/aqi",

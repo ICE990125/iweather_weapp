@@ -1,4 +1,9 @@
-// 和风天气数据的类
+/*************************
+ *    和风天气查询        *
+ *************************/
+import { appKey } from '../../appKey';
+import { qweather } from '../code';
+
 class Qweather {
   constructor(key) {
     this.key = key; // 和风天气的 key
@@ -9,61 +14,36 @@ class Qweather {
   // 简单封装的 wx.request
   wxRequest({ url, method = 'GET', data }) {
     return new Promise((resolve, reject) => {
-      if (data.location !== undefined) {
-        wx.request({
-          url: `${this.baseUrl}${url}`,
-          method: method,
-          data: Object.assign(
-            {
-              mock: this.mock,
-              key: this.key,
-            },
-            data
-          ),
-          dataType: 'json',
-          timeout: 5000,
-          success(res) {
-            switch (res.data.code) {
-              case '200':
-                resolve(res.data);
-                break;
-              case '204':
-                reject('所在地区暂无天气数据');
-                break;
-              case '404':
-                reject('查询的数据或地区不存在');
-              case '400':
-                reject('参数错误');
-                break;
-              case '401':
-                reject('认证错误, 请检查 key');
-                break;
-              case '403':
-                reject('无权访问');
-                break;
-              case '429':
-                reject('超过限定的 QPM');
-                break;
-              case '500':
-                reject('接口异常');
-                break;
-              default:
-                reject('其他状态码...');
-            }
+      wx.request({
+        url: `${this.baseUrl}${url}`,
+        method: method,
+        data: Object.assign(
+          {
+            mock: this.mock,
+            key: this.key,
           },
-          fail(err) {
-            reject(err);
-          },
-        });
-      } else {
-        reject('缺少位置信息');
-      }
+          data
+        ),
+        dataType: 'json',
+        timeout: 5000,
+        success(res) {
+          const code = res.data.code;
+          if (code === '200') {
+            resolve(res.data);
+          } else {
+            reject(qweather(code));
+          }
+        },
+        fail(err) {
+          reject(err);
+        },
+      });
     });
   }
 
   /**
    * 设置 mock 状态
-   * @param {Boolean} mock: 可选值, true && false
+   * @param { Boolean } mock: 可选值, true && false
    */
   setMockStatus(mock) {
     if (typeof mock === 'boolean') {
@@ -176,7 +156,7 @@ class Qweather {
   }
 
   // 一键获取全部天气数据
-  async getAllweather(location) {
+  getAllweather(location) {
     return Promise.all([
       this.getAqi(location),
       this.getSunTime(location),
@@ -211,4 +191,4 @@ class Qweather {
   }
 }
 
-export default new Qweather('43c8b7193529451bb1fa4f2ece6f39c2');
+export default new Qweather(appKey.qWeather);

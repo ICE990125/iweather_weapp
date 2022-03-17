@@ -1,12 +1,10 @@
 <view class="alert-container alert-class" style="background-color: {{backgroundColor}};">
   <!-- 描述 -->
   <view
-    style="color: {{backgroundColor==='#fff'|| backgroundColor === 'rgb(255,255,255)'?'#000':'#fff'}}"
+    style="color: {{color}}"
+    class="content"
     >{{text}}</view
   >
   <!-- 右图标 -->
-  <common
-    name="{{rightIcon}}"
-    color="{{backgroundColor==='#fff'|| backgroundColor === 'rgb(255,255,255)'?'#000':'#fff'}}"
-  />
+  <common name="{{rightIcon}}" color="{{color}}" />
 </view>

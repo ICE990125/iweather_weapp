@@ -1,0 +1,12 @@
+{
+    "component": true,
+    "usingComponents": {
+        "sun": "./sun/index",
+        "cloudy": "./cloudy/index",
+        "fog": "./fog/index",
+        "snow": "./snow/index",
+        "overcast": "./overcast/index",
+        "rain": "./rain/index",
+        "sand": "./sand/index"
+    }
+}

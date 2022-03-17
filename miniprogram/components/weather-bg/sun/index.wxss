@@ -1,0 +1,115 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* 太阳 */
+.sun-bg {
+  --var-sun-color-1: #ffdb41;
+  --var-sun-color-2: #ffb63c;
+  --var-sun-color-3: #ffa638;
+  --var-sun-color-4: #ff963c;
+  --var-sun-color-5: #ff823c;
+  --var-sun-color-6: #ff6d3c;
+
+  --var-sun-size: 18em;
+
+  background: linear-gradient(
+    to top right,
+    rgba(255, 87, 34, 1) 0%,
+    rgba(251, 140, 0, 1) 100%
+  );
+}
+
+.sun {
+  position: absolute;
+  right: -5em;
+  top: -5em;
+  width: var(--var-sun-size);
+  height: var(--var-sun-size);
+}
+
+.sun > .light-1,
+.sun > .light-2,
+.sun > .light-3,
+.sun > .light-4,
+.sun > .sun-body {
+  position: absolute;
+  width: var(--var-sun-size);
+  height: var(--var-sun-size);
+}
+
+.sun > .light-1,
+.sun > .light-2,
+.sun > .light-3,
+.sun > .light-4 {
+  background: linear-gradient(
+    to right,
+    var(--var-sun-color-4),
+    var(--var-sun-color-2)
+  );
+  transform-origin: center;
+  opacity: 0.5;
+}
+
+.sun > .sun-body {
+  background: linear-gradient(
+    to right,
+    var(--var-sun-color-2),
+    var(--var-sun-color-1)
+  );
+  border-radius: 50%;
+}
+
+.sun > .light-1 {
+  animation: sun-rotate-1 50s linear infinite;
+}
+
+.sun > .light-2 {
+  animation: sun-rotate-2 50s linear infinite;
+}
+
+.sun > .light-3 {
+  animation: sun-rotate-3 50s linear infinite;
+}
+
+.sun > .light-4 {
+  animation: sun-rotate-4 50s linear infinite;
+}
+
+@keyframes sun-rotate-1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sun-rotate-2 {
+  0% {
+    transform: rotate(22.5deg);
+  }
+  100% {
+    transform: rotate(382.5deg);
+  }
+}
+
+@keyframes sun-rotate-3 {
+  0% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(405deg);
+  }
+}
+
+@keyframes sun-rotate-4 {
+  0% {
+    transform: rotate(67.5deg);
+  }
+  100% {
+    transform: rotate(427.5deg);
+  }
+}

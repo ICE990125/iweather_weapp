@@ -23,6 +23,13 @@
                     "name": "搜索",
                     "pathName": "pages/search/index",
                     "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "天气背景",
+                    "pathName": "pages/test/test",
+                    "query": "",
                     "scene": null,
                     "launchMode": "default"
                 }

@@ -1,0 +1,11 @@
+<!-- 沙尘天 -->
+<view class="container sand-bg">
+  <view class="sand">
+    <view
+      wx:for="{{sand}}"
+      wx:key="index"
+      class="sand-fly"
+      style="width: {{item.size}}px; height: {{item.size}}px;background: var(--var-sand-color-{{item.color}});top: {{item.top}}%;animation-name: fly-{{item.animate}};animation-delay: {{item.delay}}s;"
+    ></view>
+  </view>
+</view>

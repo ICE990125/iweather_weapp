@@ -1,0 +1,4 @@
+<!-- 天气背景图 -->
+<view class="weather-bg">
+  <weather-bg></weather-bg>
+</view>

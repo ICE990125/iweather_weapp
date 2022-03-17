@@ -1,0 +1,53 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.snow-bg {
+  --var-snow-color-0: rgba(255, 255, 255, 1);
+  --var-snow-color-1: rgba(255, 255, 255, 0.9);
+  --var-snow-color-2: rgba(255, 255, 255, 0.8);
+  --var-snow-color-3: rgba(255, 255, 255, 0.5);
+  --var-snow-color-4: rgba(255, 255, 255, 0.3);
+  --var-snow-color-5: rgba(255, 255, 255, 0.2);
+
+  background: linear-gradient(
+    to top right,
+    rgba(215, 221, 232, 1) 0%,
+    rgb(166, 175, 199) 100%
+  );
+}
+
+.snow {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* 雪花 */
+.snow-drop {
+  position: absolute;
+  border-radius: 50%;
+  transform: translateY(-100%);
+  animation: 20s linear infinite;
+}
+
+@keyframes drop-0 {
+  0% {
+    top: 0;
+  }
+  100% {
+    left: 100%;
+    top: 100%;
+  }
+}
+
+@keyframes drop-1 {
+  0% {
+    top: 0;
+  }
+  100% {
+    left: 0;
+    top: 100%;
+  }
+}

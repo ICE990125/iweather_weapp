@@ -65,4 +65,8 @@ Page({
     // 打开抽屉
     this.setData({ isOpen: true });
   },
+  // 关闭抽屉
+  closeDrawer() {
+    this.setData({ isOpen: false });
+  },
 });

@@ -4,4 +4,9 @@
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.content {
+  flex: 1;
 }
