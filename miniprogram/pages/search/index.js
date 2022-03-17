@@ -8,16 +8,12 @@ Page({
     value: '',
     placeholder: '例如 北京市',
     cities: [],
-    isOpen: false,
+    isOpen: false, // 是否打开抽屉
     search: [], // 搜索结果
   },
   onLoad: function () {
     const app = getApp();
-    const {
-      navHeight,
-      statusBarHeight,
-      currentLocationUuid
-    } = app.globalData;
+    const { navHeight, statusBarHeight, currentLocationUuid } = app.globalData;
     const cities = suggestions();
 
     this.setData({
@@ -61,13 +57,10 @@ Page({
   getInput(e) {
     const value = e.detail.value;
     if (value !== '') {
-      app.globalData.Geo.setMockStatus(false);
-      app.globalData.Geo.getCityList(value)
+      app.globalData.qqMap
+        .getSuggestions(value)
         .then(res => {
-          this.setData({
-            isOpen: true,
-            search: res,
-          });
+          console.log(res);
         })
         .catch(err => {
           wx.showToast({
@@ -99,10 +92,16 @@ Page({
         console.error(`地图选点失败, 原因: ${err.errMsg}`);
       });
   },
-  // 当前城市
+  // 返回当前城市
   current() {
     wx.reLaunch({
       url: '../home/index?isCurrent=true',
+    });
+  },
+  // 关闭遮罩
+  closeDrawer() {
+    this.setData({
+      isOpen: false,
     });
   },
 });
