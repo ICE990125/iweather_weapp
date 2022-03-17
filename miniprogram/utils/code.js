@@ -14,7 +14,7 @@ export const qweather = {
 };
 
 // 腾讯地图
-export const qqMap = {
+export const qqMapCode = {
   110: '请求来源未被授权',
   111: '签名验证失败',
   112: 'IP 未被授权',

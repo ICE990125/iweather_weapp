@@ -4,6 +4,7 @@
 
 import qqMap from './qqmap-wx-jssdk';
 import { appKey } from '../../appKey';
+import { qqMapCode } from '../code';
 
 class QQMap {
   constructor(key) {
@@ -17,20 +18,24 @@ class QQMap {
     return new Promise((resolve, reject) => {
       this.map.reverseGeocoder({
         success(res) {
-          const result = res.result;
-          const latitude = result.location.lat; // 纬度
-          const longitude = result.location.lng; // 经度
-          const address = result.formatted_addresses.recommend; // 位置描述
-          const city = result.address_component.city; // 市
-          const province = result.address_component.province; // 市
+          if (res.status == 0) {
+            const result = res.result;
+            const latitude = result.location.lat; // 纬度
+            const longitude = result.location.lng; // 经度
+            const address = result.formatted_addresses.recommend; // 位置描述
+            const city = result.address_component.city; // 市
+            const province = result.address_component.province; // 市
 
-          resolve({
-            latitude,
-            longitude,
-            province,
-            address,
-            city,
-          });
+            resolve({
+              latitude,
+              longitude,
+              province,
+              address,
+              city,
+            });
+          } else {
+            reject(qqMapCode(res.status));
+          }
         },
         fail(err) {
           reject(err);
@@ -45,7 +50,11 @@ class QQMap {
       this.map.getSuggestion({
         keyword: value,
         success(res) {
-          resolve(res);
+          if (res.status === 0) {
+            resolve(res.data);
+          } else {
+            reject(qqMapCode(res.status));
+          }
         },
         fail(err) {
           reject(err);
