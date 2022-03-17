@@ -2,7 +2,7 @@
  *    和风天气查询        *
  *************************/
 import { appKey } from '../../appKey';
-import { qweather } from '../code';
+import { qWeatherCode } from '../code';
 
 class Qweather {
   constructor(key) {
@@ -31,7 +31,7 @@ class Qweather {
           if (code === '200') {
             resolve(res.data);
           } else {
-            reject(qweather(code));
+            reject(qWeatherCode[code]);
           }
         },
         fail(err) {
