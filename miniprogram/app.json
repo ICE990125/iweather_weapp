@@ -12,6 +12,7 @@
         "card": "/components/card/index",
         "drawer": "/components/drawer/index",
         "qweather": "/assets/icons/qweather/qweather",
+        "disasters": "/assets/icons/disasters/disasters",
         "life": "/assets/icons/life/life",
         "common": "/assets/icons/common/common",
         "aqi": "/assets/icons/aqi/aqi",
