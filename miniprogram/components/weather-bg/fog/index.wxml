@@ -1,0 +1,6 @@
+<!-- 雾天 -->
+<view class="container fog-bg">
+  <view class="fog">
+    <image src="./fog.svg" mode="widthFix" style="width: 100%;opacity: 0.5;"/>
+  </view>
+</view>

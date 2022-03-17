@@ -1,0 +1,10 @@
+<!-- 晴天 -->
+<view class="container sun-bg">
+  <view class="sun">
+    <view class="light-1"></view>
+    <view class="light-2"></view>
+    <view class="light-3"></view>
+    <view class="light-4"></view>
+    <view class="sun-body"></view>
+  </view>
+</view>

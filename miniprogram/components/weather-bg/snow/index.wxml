@@ -1,0 +1,11 @@
+<!-- 雪天 -->
+<view class="container snow-bg">
+  <view class="snow">
+    <view
+      wx:for="{{snow}}"
+      wx:key="index"
+      style="width: {{item.size}}px; height: {{item.size}}px;background: var(--var-snow-color-{{item.color}});left: {{item.left}}%;animation-name: drop-{{item.animate}}; animation-delay: {{item.delay}}s;"
+      class="snow-drop"
+    ></view>
+  </view>
+</view>

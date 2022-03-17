@@ -2,6 +2,7 @@ import getRainConfig from './rain';
 import Pollutions from '../aqi/tools/pollutions';
 import Waring from '../../utils/weather/waring';
 import uuid from '../../utils/uuid';
+import { qWeatherCode } from '../../utils/weather/qWeatherCode';
 
 const app = getApp();
 
@@ -15,6 +16,7 @@ Page({
     average: 0, // 平均值
     deltaTemp: 0, // 温度最大最小值差
     unit: '°', // 温度单位
+    weatherType: 'sun', // 当前天气类型
   },
   onLoad(options) {
     // 获取状态栏高度
@@ -57,7 +59,6 @@ Page({
   },
   getQweather(location, kwargs) {
     // 获取天气
-    // app.globalData.qweather.setMockStatus(false);
     app.globalData.qweather
       .getAllweather(location)
       .then(res => {
@@ -97,6 +98,9 @@ Page({
           temperature: now.temp, // 温度
           desc: now.text, // 天气情况
         };
+
+        // 天气类型
+        let weatherType = qWeatherCode[now.icon];
 
         // 空气质量
         const aqi = res.aqi;
@@ -199,13 +203,13 @@ Page({
 
         this.setData({
           isReady: true,
+          weatherType,
           ...Weather,
         });
       })
       .catch(err => {
-        console.log(err);
         wx.showToast({
-          title: err.errMsg,
+          title: err.message,
           icon: 'none',
           duration: 2000,
         });

@@ -6,6 +6,7 @@
     "row-panel": "/components/row-panel/index",
     "grid-swiper": "/components/grid-swiper/index",
     "sun-moon": "/components/sun-moon/index",
-    "alert": "/components/alert/index"
+    "alert": "/components/alert/index",
+    "weather-bg": "/components/weather-bg/index"
   }
 }

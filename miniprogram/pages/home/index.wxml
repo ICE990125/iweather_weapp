@@ -8,7 +8,9 @@
 />
 
 <!-- 天气背景图 -->
-<view class="weather-bg"></view>
+<view class="weather-bg">
+  <weather-bg name="{{weatherType}}"></weather-bg>
+</view>
 
 <scroll-view
   wx:if="{{isReady}}"
@@ -45,7 +47,8 @@
       wx:key="index"
       data-index="{{index}}"
       text="{{item.typeName}}预警"
-      backgroundColor="{{item.color}}"
+      backgroundColor="{{item.bgColor}}"
+      color="{{item.color}}"
       bindtap="waringPage"
       alert-class="alert"
     />

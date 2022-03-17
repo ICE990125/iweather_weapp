@@ -1,0 +1,16 @@
+<view class="container">
+  <!-- 晴天 -->
+  <sun wx:if="{{name === 'sun'}}"></sun>
+  <!-- 多云 -->
+  <cloudy wx:if="{{name === 'cloudy'}}"></cloudy>
+  <!-- 雨天 -->
+  <rain wx:if="{{name === 'rain'}}"></rain>
+  <!-- 雪天 -->
+  <snow wx:if="{{name === 'snow'}}"></snow>
+  <!-- 沙尘 -->
+  <sand wx:if="{{name === 'sand'}}"></sand>
+  <!-- 阴天 -->
+  <overcast wx:if="{{name === 'overcast'}}"></overcast>
+  <!-- 雾天 -->
+  <fog wx:if="{{name === 'fog'}}"></fog>
+</view>

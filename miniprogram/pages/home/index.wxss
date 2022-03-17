@@ -1,6 +1,5 @@
 /* 背景图 */
 .weather-bg {
-  background-color: rgb(84, 171, 253);
   position: fixed;
   top: 0;
   left: 0;

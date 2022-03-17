@@ -1,0 +1,10 @@
+<!-- 阴天 -->
+<view class="container overcast-bg">
+  <view class="overcast">
+    <view class="cloud-1"></view>
+    <view class="cloud-2"></view>
+    <view class="cloud-5"></view>
+    <view class="cloud-3"></view>
+    <view class="cloud-4"></view>
+  </view>
+</view>
