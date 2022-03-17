@@ -36,7 +36,7 @@
 
 <!-- 这里加一个抽屉 -->
 <!-- 展示空气污染指数的介绍 -->
-<drawer isOpen="{{isOpen}}">
+<drawer isOpen="{{isOpen}}" bind:closeDrawer="closeDrawer">
   <view class="aqi-description">
     <!-- 颜色条 -->
     <view class="color-bar" style="background: linear-gradient({{color}});" />
