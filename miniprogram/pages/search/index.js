@@ -7,18 +7,16 @@ Page({
     paddingTop: 0,
     value: '',
     placeholder: '例如 北京市',
-    cities: [],
+    cities: [...suggestions()],
     isOpen: false, // 是否打开抽屉
     search: [], // 搜索结果
   },
   onLoad: function () {
     const app = getApp();
     const { navHeight, statusBarHeight, currentLocationUuid } = app.globalData;
-    const cities = suggestions();
 
     this.setData({
       paddingTop: navHeight + statusBarHeight,
-      cities,
       // 判断是否存在当前城市的 uuid
       showCurrent: currentLocationUuid ? true : false,
     });
@@ -45,12 +43,10 @@ Page({
     const index = e.currentTarget.dataset.index;
     const loc = this.data.search[index];
 
-    const latitude = loc.lat;
-    const longitude = loc.lon;
-    const name = `${loc.adm1}-${loc.name}`;
+    const { address, latitude, longitude, title } = loc;
 
     wx.reLaunch({
-      url: `../home/index?lat=${latitude}&lon=${longitude}&name=${name}`,
+      url: `../home/index?lat=${latitude}&lon=${longitude}&name=${title}&address=${address}`,
     });
   },
   // 搜索建议
@@ -60,7 +56,21 @@ Page({
       app.globalData.qqMap
         .getSuggestions(value)
         .then(res => {
-          console.log(res);
+          const search = res.map(el => {
+            return {
+              city: el.city,
+              province: el.province,
+              title: el.title,
+              district: el.district,
+              location: el.location,
+              address: el.address,
+            };
+          });
+
+          this.setData({
+            search,
+            isOpen: true,
+          });
         })
         .catch(err => {
           wx.showToast({
@@ -76,8 +86,6 @@ Page({
     wx.chooseLocation()
       .then(res => {
         if (res.address !== '') {
-          console.log(`用户选择了地址: ${res.address}`);
-
           const latitude = res.latitude;
           const longitude = res.longitude;
           const name = res.name;

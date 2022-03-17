@@ -23,11 +23,10 @@ Page({
 
     // 如果当前页面是跳转过来的
     if (options.lat && options.lon) {
-      const city = options.name;
       const location = `${options.lon},${options.lat}`;
       this.getQweather(location, {
-        city,
-        address: typeof options.address !== 'undefined' ? options.address : '',
+        city: options.name,
+        address: options.address,
         isCurrent: false,
       });
     } else if (options.isCurrent) {
@@ -58,7 +57,7 @@ Page({
   },
   getQweather(location, kwargs) {
     // 获取天气
-    app.globalData.qweather.setMockStatus(false);
+    // app.globalData.qweather.setMockStatus(false);
     app.globalData.qweather
       .getAllweather(location)
       .then(res => {
@@ -169,7 +168,9 @@ Page({
         // 灾害预警
         Weather.warings = [...res.waring];
         Weather.warings.forEach(waring => {
-          waring.color = Waring.getWaringColor(waring.level);
+          const { color, bgColor } = Waring.getWaringColor(waring.level);
+          waring.color = color;
+          waring.bgColor = bgColor;
         });
 
         // 月亮

@@ -52,8 +52,8 @@
       data-index="{{index}}"
     >
       <view>
-        <view class="city-name">{{item.name}}</view>
-        <view class="city-detail">{{item.country}},{{item.adm2}},{{item.adm1}}</view>
+        <view class="city-name">{{item.title}}</view>
+        <view class="city-detail">{{item.province}}, {{item.city}}, {{item.district}}</view>
       </view>
       <common name="enter" />
     </view>
