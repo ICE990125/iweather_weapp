@@ -1,17 +1,44 @@
-.drawer-mask {
+.drawer-container {
   position: fixed;
   bottom: 0;
   width: 100vw;
   z-index: 100;
-  transition: opacity 0.2s, height 1ms;
-  background-color: rgba(0, 0, 0, 0.5);
+  transition: height 1ms;
 }
 
+.drawer-container.drawer-close {
+  height: 0;
+  transition-delay: 300ms;
+}
+
+.drawer-container.drawer-open {
+  height: 100%;
+}
+
+/* 蒙层 */
+.drawer-mask {
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: opacity 200ms;
+  width: 100%;
+  height: 100%;
+}
+
+/* 关闭蒙层 */
+.drawer-close > .drawer-mask {
+  opacity: 0;
+}
+
+/* 打开蒙层 */
+.drawer-open > .drawer-mask {
+  opacity: 1;
+}
+
+/* 内容 */
 .drawer-content {
   background-color: white;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  transition: transform 0.3s;
+  transition: transform 300ms ease-in-out;
   max-height: 80vh;
   padding: 20px;
   position: absolute;
@@ -21,22 +48,13 @@
   bottom: 0;
 }
 
-.drawer-mask.drawer-close {
-  opacity: 0;
-  height: 0;
-  transition-delay: 0, 0.3s;
-}
-
-.drawer-mask.drawer-close .drawer-content {
+/* 关闭内容 */
+.drawer-close .drawer-content {
   transform: translateY(100%);
 }
 
-.drawer-mask.drawer-open {
-  opacity: 1;
-  height: 100%;
-}
-
-.drawer-mask.drawer-open .drawer-content {
+/* 打开内容 */
+.drawer-open .drawer-content {
   transform: translateY(0);
 }
 
