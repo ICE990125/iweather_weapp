@@ -3,8 +3,10 @@ import { Line } from './line';
 Component({
   externalClasses: ['line-class'],
   properties: {
-    width: String,
-    height: String,
+    height: {
+      type: String,
+      value: '150px',
+    },
     options: Object,
   },
   lifetimes: {

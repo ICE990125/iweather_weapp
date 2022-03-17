@@ -62,7 +62,8 @@ Page({
               province: el.province,
               title: el.title,
               district: el.district,
-              location: el.location,
+              latitude: el.location.lat,
+              longitude: el.location.lng,
               address: el.address,
             };
           });

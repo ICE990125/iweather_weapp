@@ -3,7 +3,7 @@
  *************************/
 
 // 和风天气
-export const qweather = {
+export const qWeatherCode = {
   204: '所在地区暂无天气数据',
   404: '查询的数据或地区不存在',
   400: '参数错误',

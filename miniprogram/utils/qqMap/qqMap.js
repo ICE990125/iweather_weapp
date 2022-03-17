@@ -34,7 +34,7 @@ class QQMap {
               city,
             });
           } else {
-            reject(qqMapCode(res.status));
+            reject(qqMapCode[res.status]);
           }
         },
         fail(err) {

@@ -55,7 +55,7 @@
     <card card-class="card-1" wx:if="{{precipitation}}">
       <view>
         <view class="title">降水</view>
-        <line-chart width="100%" height="150px" options="{{precipitation.options}}" />
+        <line-chart options="{{precipitation.options}}" />
         <view class="precip-summary">{{precipitation.summary}}</view>
       </view>
     </card>

@@ -28,7 +28,7 @@ Page({
       const location = `${options.lon},${options.lat}`;
       this.getQweather(location, {
         city: options.name,
-        address: options.address,
+        address: typeof options.address === 'undefined' ? '' : options.address,
         isCurrent: false,
       });
     } else if (options.isCurrent) {
@@ -59,6 +59,7 @@ Page({
   },
   getQweather(location, kwargs) {
     // 获取天气
+    app.globalData.qweather.setMockStatus(false);
     app.globalData.qweather
       .getAllweather(location)
       .then(res => {
