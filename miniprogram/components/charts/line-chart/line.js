@@ -63,6 +63,9 @@ export class Line extends Canvas {
     // 绘制坐标轴网格
     this.drawAxisGrid();
 
+    // 绘制坐标轴
+    this.drawAxis();
+
     // 绘制曲线
     series.forEach(el => {
       if (el.data instanceof Array) {
@@ -70,9 +73,6 @@ export class Line extends Canvas {
         this.drawBackground(path, el); // 背景
       }
     });
-
-    // 绘制坐标轴
-    this.drawAxis();
   }
 
   // 绘制坐标网格
