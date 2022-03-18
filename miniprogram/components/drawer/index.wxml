@@ -1,4 +1,4 @@
-<view class="drawer-container {{isOpen?'drawer-open':'drawer-close'}}">
+<view class="drawer-container {{placement}} {{isOpen?'drawer-open':'drawer-close'}}">
   <!-- 蒙层 -->
   <view class="drawer-mask" bindtap="closeDrawer"></view>
   <!-- 抽屉内容 -->
