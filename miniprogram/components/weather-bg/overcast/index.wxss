@@ -12,7 +12,7 @@
   --var-cloudy-color-5: #e8e8e8;
   --var-cloudy-color-6: #c2c7d1;
 
-  --var-cloudy-size: 500rpx;
+  --var-cloudy-size: 20em;
 
   background: linear-gradient(
     to top right,
