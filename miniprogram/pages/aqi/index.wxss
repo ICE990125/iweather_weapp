@@ -2,34 +2,40 @@
   box-sizing: border-box;
   padding: 0 2em;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 700px) {
+  .aqi-info-container {
+    flex-direction: row;
+  }
 }
 
 .aqi-progress {
-  height: 400rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
+  margin: 3em;
 }
 
-.aqi {
+/* 提示按钮 */
+.tip {
   position: absolute;
-  text-align: center;
-}
-
-.aqi-num {
-  font-size: 2.5em;
-  font-weight: bold;
-  background-clip: text;
+  right: 0;
+  top: 0;
 }
 
 .label {
   font-weight: bold;
 }
 
+.aqi-detail-info {
+  width: 100%;
+}
+
 .pollutions-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 0.5em;
   margin: 1em 0;
 }
@@ -38,10 +44,6 @@
   font-size: 0.6em;
   color: #707070;
   margin: 0.5em 0;
-}
-
-.tip {
-  height: 200rpx;
 }
 
 .aqi-description {
@@ -67,7 +69,6 @@
 .desc-title > view {
   margin-left: 0.5em;
 }
-
 
 .hourly-container {
   margin: 1em 0;
