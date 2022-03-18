@@ -49,7 +49,8 @@
 .cites-container,
 .history-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, 100px);
+  justify-content: space-between;
   grid-gap: 10px;
 }
 
@@ -63,6 +64,10 @@
 }
 
 /* 城市建议弹窗 */
+.cities {
+  height: 100%;
+}
+
 .cities .title {
   margin-bottom: 0.8em;
   font-weight: bold;

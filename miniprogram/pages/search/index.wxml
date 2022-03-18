@@ -1,6 +1,6 @@
 <!-- 导航栏 -->
 <nav-bar
-  navLeftIcon="back"
+  navLeftIcon="{{isPC ? '' : 'back'}}"
   navTitle="搜索城市"
   bind:left="back"
   textColor="#000"
@@ -15,7 +15,7 @@
       <common name="search" class="search-icon" />
       <input value="{{value}}" placeholder="{{placeholder}}" bindconfirm="getInput" />
     </view>
-    <view class="btn-map" bindtap="chooseLocation">
+    <view class="btn-map" bindtap="chooseLocation" wx:if="{{!isPC}}">
       <common name="location" />
       <text>地图</text>
     </view>
@@ -41,7 +41,7 @@
   </view>
 </view>
 
-<drawer isOpen="{{isOpen}}" bind:closeDrawer="closeDrawer">
+<drawer isOpen="{{isOpen}}" placement="{{isPC ? 'right' : 'bottom'}}" bind:closeDrawer="closeDrawer">
   <scroll-view class="cities" scroll-y enhanced="{{true}}" show-scrollbar="{{false}}">
     <view class="title">搜索结果</view>
     <view
