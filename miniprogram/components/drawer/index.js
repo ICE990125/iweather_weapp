@@ -4,6 +4,7 @@ Component({
       type: Boolean,
       value: false,
     },
+    placement: String,
   },
   methods: {
     closeDrawer() {

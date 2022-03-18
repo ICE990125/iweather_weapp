@@ -10,15 +10,18 @@ Page({
     cities: [...suggestions()],
     isOpen: false, // 是否打开抽屉
     search: [], // 搜索结果
+    navIcon: '', // 导航栏图标
   },
   onLoad: function () {
     const app = getApp();
-    const { navHeight, statusBarHeight, currentLocationUuid } = app.globalData;
+    const { navHeight, statusBarHeight, currentLocationUuid, isPC } =
+      app.globalData;
 
     this.setData({
       paddingTop: navHeight + statusBarHeight,
       // 判断是否存在当前城市的 uuid
       showCurrent: currentLocationUuid ? true : false,
+      isPC,
     });
   },
   back() {

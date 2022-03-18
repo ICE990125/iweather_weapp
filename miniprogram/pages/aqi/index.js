@@ -6,6 +6,7 @@ Page({
     paddingTop: 0,
     percentage: 0, // 空气质量百分比
     options: {},
+    isPC: false, // 是否是 PC 端
     isOpen: false,
     color: '',
     desc: [],
@@ -13,7 +14,7 @@ Page({
   onLoad(options) {
     const uuid = options.uuid; // 获取上一页传过来天气对象的 uuid
     const app = getApp();
-    const { navHeight, statusBarHeight } = app.globalData;
+    const { navHeight, statusBarHeight, isPC } = app.globalData;
     const aqi = app.globalData[uuid].aqi;
 
     const percentage = aqi.value / 500;
@@ -49,6 +50,7 @@ Page({
       paddingTop: navHeight + statusBarHeight,
       options: options_,
       percentage,
+      isPC,
       hours,
       aqi,
       color,

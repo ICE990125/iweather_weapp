@@ -1,4 +1,4 @@
 .progress-canvas {
-    width: 300rpx;
-    height: 300rpx;
+    width: 10em;
+    height: 10em;
 }

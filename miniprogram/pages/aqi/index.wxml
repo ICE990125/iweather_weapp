@@ -1,42 +1,45 @@
-<nav-bar navLeftIcon="back" navTitle="空气质量指数" bind:left="back" textColor="#000" />
+<nav-bar
+  navLeftIcon="{{isPC ? '' : 'back'}}"
+  navTitle="空气质量指数"
+  bind:left="back"
+  textColor="#000"
+/>
 
-<scroll-view
-  class="aqi-info-container"
-  style="padding-top: {{paddingTop}}px"
-  scroll-y
-  enhanced="{{true}}"
-  show-scrollbar="{{false}}"
->
+<view class="aqi-info-container" style="padding-top: {{paddingTop}}px">
   <!-- AQI 指数进度条 -->
   <view class="aqi-progress">
     <semicircle-progress options="{{options}}"></semicircle-progress>
     <common name="tip" class="tip" bindtap="popTip" size="20"></common>
   </view>
-  <view class="label">污染物</view>
-  <view class="updateTime-label">发布时间: {{aqi.pubTime}}</view>
-  <view class="pollutions-container">
-    <block-progress
-      wx:for="{{aqi.components}}"
-      wx:key="name"
-      value="{{item.value}}"
-      desc="{{item.name}}"
-      sub="{{item.unit}}"
-      max="{{item.max}}"
-    />
-  </view>
 
-  <view wx:if="{{hours}}">
-    <view class="label">小时预报</view>
-    <!-- 小时预报可滚动柱状图 -->
-    <view class="hourly-container">
-      <slide-bar chartData="{{hours}}" />
+  <view class="aqi-detail-info">
+    <!-- 各种污染物 -->
+    <view class="label">污染物</view>
+    <view class="updateTime-label">发布时间: {{aqi.pubTime}}</view>
+    <view class="pollutions-container">
+      <block-progress
+        wx:for="{{aqi.components}}"
+        wx:key="name"
+        value="{{item.value}}"
+        desc="{{item.name}}"
+        sub="{{item.unit}}"
+        max="{{item.max}}"
+      />
+    </view>
+
+    <view wx:if="{{hours}}">
+      <view class="label">小时预报</view>
+      <!-- 小时预报可滚动柱状图 -->
+      <view class="hourly-container">
+        <slide-bar chartData="{{hours}}" />
+      </view>
     </view>
   </view>
-</scroll-view>
+</view>
 
 <!-- 这里加一个抽屉 -->
 <!-- 展示空气污染指数的介绍 -->
-<drawer isOpen="{{isOpen}}" bind:closeDrawer="closeDrawer">
+<drawer isOpen="{{isOpen}}" bind:closeDrawer="closeDrawer" placement="right">
   <view class="aqi-description">
     <!-- 颜色条 -->
     <view class="color-bar" style="background: linear-gradient({{color}});" />

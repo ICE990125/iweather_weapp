@@ -2,10 +2,11 @@ Page({
   data: {
     paddingTop: 0,
     cities: [],
+    navIcon: '',
   },
   onLoad: function () {
     const app = getApp();
-    const { navHeight, statusBarHeight } = app.globalData;
+    const { navHeight, statusBarHeight, isPC } = app.globalData;
 
     // 从缓存中获取城市信息
     let cities;
@@ -23,6 +24,7 @@ Page({
     this.setData({
       paddingTop: navHeight + statusBarHeight,
       cities,
+      isPC,
     });
   },
   back() {

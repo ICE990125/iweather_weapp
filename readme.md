@@ -19,3 +19,6 @@ export const appKey = {
 };
 ```
 
+### 扫码体验
+
+[![qkka5D.jpg](https://s1.ax1x.com/2022/03/18/qkka5D.jpg)](https://imgtu.com/i/qkka5D)
