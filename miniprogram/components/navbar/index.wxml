@@ -1,6 +1,6 @@
 <view
   class="nav-bar-container"
-  style="padding-top:{{statusBarHeight}}px; color: {{textColor}}; background-color: {{backgroundColor}};"
+  style="padding-top:{{statusBarHeight}}px; color: {{textColor}}; background-color: {{backgroundColor}}; {{isFixed? 'position: fixed;' : ''}}"
 >
   <view class="nav-bar" style="height: {{navHeight}}px;width: {{navWidth}}px">
     <!-- 导航栏左边图标 -->

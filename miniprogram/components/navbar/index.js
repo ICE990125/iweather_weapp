@@ -12,6 +12,10 @@ Component({
       type: String,
       value: 'transparent',
     },
+    isFixed: {
+      type: Boolean,
+      value: true, // 导航栏是否固定
+    },
     navLeftIcon: String, // 左图标
     navRightIcon: String, // 右图标
     subTitle: String, // 主标题
