@@ -10,6 +10,8 @@ Page({
   data: {
     navBgColor: 'transparent', // 导航栏颜色
     paddingTop: 0,
+    navHeight: 0, // 导航栏高度
+    isPC: false, // 是否是 PC 端
     city: '正在定位...', // 当前城市
     address: '', // 详细城市
     isReady: false, // 天气信息是否加载完毕
@@ -20,8 +22,12 @@ Page({
   },
   onLoad(options) {
     // 获取状态栏高度
-    const { navHeight, statusBarHeight } = app.globalData;
-    this.setData({ paddingTop: navHeight + statusBarHeight });
+    const { navHeight, statusBarHeight, isPC } = app.globalData;
+    this.setData({
+      isPC,
+      navHeight,
+      paddingTop: navHeight + statusBarHeight,
+    });
 
     // 如果当前页面是跳转过来的
     if (options.lat && options.lon) {
@@ -59,7 +65,7 @@ Page({
   },
   getQweather(location, kwargs) {
     // 获取天气
-    app.globalData.qweather.setMockStatus(false);
+    // app.globalData.qweather.setMockStatus(false);
     app.globalData.qweather
       .getAllweather(location)
       .then(res => {
@@ -228,7 +234,7 @@ Page({
   },
   waringPage(e) {
     const index = e.target.dataset.index;
-
+    console.log('点击');
     wx.navigateTo({
       url: `../warn/index?uuid=${this.data.uuid}&index=${index}`,
     });

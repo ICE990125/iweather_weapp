@@ -1,5 +1,7 @@
 <!-- 导航栏 -->
+<!-- 屏幕宽度 < 700px 显示 -->
 <nav-bar
+  wx:if="{{!isPC}}"
   navLeftIcon="cites"
   navTitle="{{city}}"
   subTitle="{{address}}"
@@ -12,138 +14,174 @@
   <weather-bg name="{{weatherType}}"></weather-bg>
 </view>
 
+<!-- 可滚动视图 -->
 <scroll-view
   wx:if="{{isReady}}"
   class="weather-container"
   scroll-y
-  style="padding-top: {{paddingTop}}px"
+  style="padding-top: {{isPC ? 0 : paddingTop}}px"
   enhanced="{{true}}"
   show-scrollbar="{{false}}"
 >
-  <!-- 天气简报 -->
-  <view class="weather-brief-info">
-    <view class="temperature rise-animation">
-      {{now.temperature}}{{unit}}
-    </view>
-    <view class="weather-condition rise-animation">
-      {{now.desc}}, 体感 {{now.feelsLike}}{{unit}}
-    </view>
-    <!--  空气质量  -->
-    <quote
-      bindtap="aqiPage"
-      icon="quote"
-      text="空气质量 - {{aqi.category}}"
-      quote-class="weather-aqi"
-    />
-    <!-- 一些重要数据 -->
-    <row-panel options="{{now.detail}}" panel-class="detail-data" />
-  </view>
-
-  <!-- 详细的天气信息 -->
-  <view class="weather-detail-content">
-    <!-- 预警 -->
-    <alert
-      wx:for="{{warings}}"
-      wx:key="index"
-      data-index="{{index}}"
-      text="{{item.typeName}}预警"
-      backgroundColor="{{item.bgColor}}"
-      color="{{item.color}}"
-      bindtap="waringPage"
-      alert-class="alert"
-    />
-    <card card-class="card-1" wx:if="{{precipitation}}">
-      <view>
-        <view class="title">降水</view>
-        <line-chart options="{{precipitation.options}}" />
-        <view class="precip-summary">{{precipitation.summary}}</view>
+  <view class="weather-item">
+    <!-- 天气简报 -->
+    <view class="weather-brief-info {{isPC ? 'PC' : ''}}">
+      <!-- 导航栏, PC 端显示 -->
+      <nav-bar
+        wx:if="{{isPC}}"
+        navLeftIcon="cites"
+        navTitle="{{city}}"
+        subTitle="{{address}}"
+        bind:left="cites"
+        backgroundColor="{{navBgColor}}"
+        isFixed="{{false}}"
+      />
+      <view class="weather-brief-info-item">
+        <view class="temperature rise-animation">
+          {{now.temperature}}{{unit}}
+        </view>
+        <view class="weather-condition rise-animation">
+          {{now.desc}}, 体感 {{now.feelsLike}}{{unit}}
+        </view>
+        <!--  空气质量  -->
+        <quote
+          bindtap="aqiPage"
+          icon="quote"
+          text="空气质量 - {{aqi.category}}"
+          quote-class="weather-aqi"
+        />
+        <!-- 气压, 湿度, 能见度 -->
+        <row-panel options="{{now.detail}}" panel-class="detail-data" />
       </view>
-    </card>
-    <card card-class="card-1">
-      <view>
-        <view class="title">小时概述</view>
-        <scroll-view scroll-x class="scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
-          <view class="hours">
-            <view class="hours-item" wx:for="{{hours}}" wx:key="index">
-              <!-- 天气时间 -->
-              <view class="hours-time">{{item.time}}</view>
-              <!-- 天气图标 -->
-              <qweather name="{{item.icon}}" class="hours-icon" />
-              <!-- 温度 -->
-              <view class="hours-temp">{{item.temp}}</view>
-              <!-- 天气情况 -->
-              <view class="hours-desc">{{item.text}}</view>
-              <!-- 风况 -->
-              <view class="hours-wind">
-                <view class="wind-icon" style="transform: rotate({{item.wind360}}deg);">
-                  <common name="arrow" color="#FCCF31" size="25"/>
+    </view>
+
+    <!-- 详细的天气信息 -->
+    <scroll-view scroll-y class="weather-detail-content">
+      <match-media max-width="700">
+        <!-- 预警, 宽度小于 700 显示 -->
+        <alert
+          wx:for="{{warings}}"
+          wx:key="index"
+          data-index="{{index}}"
+          text="{{item.typeName}}预警"
+          backgroundColor="{{item.bgColor}}"
+          color="{{item.color}}"
+          bindtap="waringPage"
+          alert-class="alert"
+        />
+      </match-media>
+      <match-media min-width="700">
+        <!-- 预警, 宽度大于 700 显示 -->
+        <scroll-view scroll-x enable-flex class="alert-container">
+          <view
+            class="alert alert-width-700"
+            wx:for="{{warings}}"
+            data-index="{{index}}"
+            wx:key="index"
+            bindtap="waringPage"
+            style="background: {{item.bgColor}}; color: {{item.color}};"
+            >{{item.typeName}}预警</view
+          >
+        </scroll-view>
+      </match-media>
+
+      <!-- 降水 -->
+      <card card-class="card-1" wx:if="{{precipitation}}">
+        <view>
+          <view class="title">降水</view>
+          <line-chart options="{{precipitation.options}}" />
+          <view class="precip-summary">{{precipitation.summary}}</view>
+        </view>
+      </card>
+
+      <!-- 小时概述 -->
+      <card card-class="card-1">
+        <view>
+          <view class="title">小时概述</view>
+          <scroll-view scroll-x class="hourly-scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
+            <view class="hours">
+              <view class="hours-item" wx:for="{{hours}}" wx:key="index">
+                <!-- 天气时间 -->
+                <view class="hours-time">{{item.time}}</view>
+                <!-- 天气图标 -->
+                <qweather name="{{item.icon}}" class="hours-icon" />
+                <!-- 温度 -->
+                <view class="hours-temp">{{item.temp}}</view>
+                <!-- 天气情况 -->
+                <view class="hours-desc">{{item.text}}</view>
+                <!-- 风况 -->
+                <view class="hours-wind">
+                  <view class="wind-icon" style="transform: rotate({{item.wind360}}deg);">
+                    <common name="arrow" color="#FCCF31" size="25" />
+                  </view>
+                  <view>{{item.windScale}}级</view>
                 </view>
-                <view>{{item.windScale}}级</view>
               </view>
             </view>
-          </view>
-        </scroll-view>
-      </view>
-    </card>
-
-    <card card-class="card-2">
-      <view>
-        <view class="title">逐日概述</view>
-        <scroll-view scroll-x class="scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
-          <view class="days">
-            <view class="days-item" wx:for="{{days}}" wx:key="index">
-              <!-- 星期 -->
-              <view class="days-week">{{item.weekday}}</view>
-              <!-- 几号 -->
-              <view class="days-time">{{item.day}}</view>
-              <!-- 白天天气情况 -->
-              <view class="days-desc">{{item.textDay}}</view>
-              <!-- 白天天气图标 -->
-              <qweather name="{{item.iconDay}}" class="hours-icon" />
-
-              <!-- 温度图 -->
-              <single-bar-chart
-                max="{{item.tempMax}}"
-                min="{{item.tempMin}}"
-                average="{{average}}"
-                delta="{{deltaTemp}}"
-              />
-
-              <!-- 夜间天气图标 -->
-              <qweather name="{{item.iconNight}}" class="hours-icon" />
-              <!-- 夜间天气描述 -->
-              <view class="hours-desc">{{item.textNight}}</view>
-            </view>
-          </view>
-          <!-- 温度曲线 -->
-        </scroll-view>
-      </view>
-    </card>
-
-    <!-- 生活指数轮播图 -->
-    <card card-class="card-3">
-      <view>
-        <view class="title">生活指数</view>
-        <grid-swiper swiperData="{{livingIndices}}" />
-      </view>
-    </card>
-
-    <!-- 日月生落 -->
-    <card card-class="card-4">
-      <view>
-        <view class="title-container">
-          <view class="title">日月升落</view>
-          <!-- 月相 -->
-          <qweather name="{{moonTime.icon}}" />
+          </scroll-view>
         </view>
-        <sun-moon
-          sunRise="{{sunTime.sunRise}}"
-          sunSet="{{sunTime.sunSet}}"
-          moonRise="{{moonTime.moonRise}}"
-          moonSet="{{moonTime.moonSet}}"
-        />
-      </view>
-    </card>
+      </card>
+
+      <!-- 逐日概述 -->
+      <card card-class="card-2">
+        <view>
+          <view class="title">逐日概述</view>
+          <scroll-view scroll-x class="days-scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
+            <view class="days">
+              <view class="days-item" wx:for="{{days}}" wx:key="index">
+                <!-- 星期 -->
+                <view class="days-week">{{item.weekday}}</view>
+                <!-- 几号 -->
+                <view class="days-time">{{item.day}}</view>
+                <!-- 白天天气情况 -->
+                <view class="days-desc">{{item.textDay}}</view>
+                <!-- 白天天气图标 -->
+                <qweather name="{{item.iconDay}}" class="hours-icon" />
+
+                <!-- 温度图 -->
+                <single-bar-chart
+                  max="{{item.tempMax}}"
+                  min="{{item.tempMin}}"
+                  average="{{average}}"
+                  delta="{{deltaTemp}}"
+                />
+
+                <!-- 夜间天气图标 -->
+                <qweather name="{{item.iconNight}}" class="hours-icon" />
+                <!-- 夜间天气描述 -->
+                <view class="hours-desc">{{item.textNight}}</view>
+              </view>
+            </view>
+            <!-- 温度曲线 -->
+          </scroll-view>
+        </view>
+      </card>
+
+      <!-- 生活指数轮播图 -->
+      <card card-class="card-3">
+        <view>
+          <view class="title">生活指数</view>
+          <grid-swiper swiperData="{{livingIndices}}" />
+        </view>
+      </card>
+
+      <!-- 日月生落 -->
+      <card card-class="card-4">
+        <view>
+          <view class="title-container">
+            <view class="title">日月升落</view>
+            <!-- 月相 -->
+            <qweather name="{{moonTime.icon}}" />
+          </view>
+          <sun-moon
+            sunRise="{{sunTime.sunRise}}"
+            sunSet="{{sunTime.sunSet}}"
+            moonRise="{{moonTime.moonRise}}"
+            moonSet="{{moonTime.moonSet}}"
+          />
+        </view>
+      </card>
+    </scroll-view>
   </view>
 </scroll-view>
 
