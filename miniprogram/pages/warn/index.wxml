@@ -1,7 +1,7 @@
 <!-- 天气预警页面 -->
 
 <nav-bar
-  navLeftIcon="back"
+  navLeftIcon="{{navIcon}}"
   navTitle="预警详情"
   bind:left="back"
   textColor="{{color}}"
@@ -13,7 +13,7 @@
 >
   <view class="waring-container">
     <view>
-      <disasters name="{{type}}" size="50" />
+      <disasters name="{{type}}" size="90" />
     </view>
     <view class="warn">{{warn}}</view>
     <view>{{desc}}</view>

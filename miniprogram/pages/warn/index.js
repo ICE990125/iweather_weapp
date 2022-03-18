@@ -5,11 +5,12 @@ Page({
     warn: '', // 预警
     desc: '', // 预警详细信息
     type: 0, // 预警类型
+    navIcon: '', // 是否显示返回图标
   },
 
   onLoad(options) {
     const app = getApp();
-    const { navHeight, statusBarHeight } = app.globalData;
+    const { navHeight, statusBarHeight, isPC } = app.globalData;
     const paddingTop = navHeight + statusBarHeight;
 
     const uuid = options.uuid; // 获取上一页传过来天气对象的 uuid
@@ -22,7 +23,19 @@ Page({
     const desc = waring.text;
     const type = waring.type;
 
-    this.setData({ bgColor, color, warn, desc, paddingTop, type });
+    if (isPC) {
+      this.setData({ bgColor, color, warn, desc, paddingTop, type });
+    } else {
+      this.setData({
+        bgColor,
+        color,
+        warn,
+        desc,
+        paddingTop,
+        type,
+        navIcon: 'back',
+      });
+    }
   },
 
   back() {
