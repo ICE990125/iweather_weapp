@@ -28,5 +28,6 @@
         "scope.userLocation": {
             "desc": "位置信息将用于当前天气的请求"
         }
-    }
+    },
+    "resizable": true
 }
