@@ -48,6 +48,12 @@
 
 .aqi-description {
   display: flex;
+  height:100%;
+  align-items: center;
+}
+
+.aqi-description-item {
+  display: flex;
 }
 
 .color-bar {

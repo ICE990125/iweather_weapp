@@ -39,19 +39,43 @@
 
 <!-- 这里加一个抽屉 -->
 <!-- 展示空气污染指数的介绍 -->
-<drawer isOpen="{{isOpen}}" bind:closeDrawer="closeDrawer" placement="right">
-  <view class="aqi-description">
-    <!-- 颜色条 -->
-    <view class="color-bar" style="background: linear-gradient({{color}});" />
-    <!-- 描述 -->
-    <view class="desc">
-      <view wx:for="{{desc}}" wx:key="name">
-        <view class="desc-title">
-          <aqi name="{{item.icon}}" />
-          <view>{{item.name}}: {{item.scope}}</view>
+<match-media min-width="700">
+  <drawer isOpen="{{isOpen}}" bind:closeDrawer="closeDrawer" placement="right">
+    <view class="aqi-description">
+      <view class="aqi-description-item">
+        <!-- 颜色条 -->
+        <view class="color-bar" style="background: linear-gradient({{color}});" />
+        <!-- 描述 -->
+        <view class="desc">
+          <view wx:for="{{desc}}" wx:key="name">
+            <view class="desc-title">
+              <aqi name="{{item.icon}}" />
+              <view>{{item.name}}: {{item.scope}}</view>
+            </view>
+            <view>{{item.desc}}</view>
+          </view>
         </view>
-        <view>{{item.desc}}</view>
       </view>
     </view>
-  </view>
-</drawer>
+  </drawer>
+</match-media>
+<match-media max-width="700">
+  <drawer isOpen="{{isOpen}}" bind:closeDrawer="closeDrawer" placement="bottom">
+    <view class="aqi-description">
+      <view class="aqi-description-item">
+        <!-- 颜色条 -->
+        <view class="color-bar" style="background: linear-gradient({{color}});" />
+        <!-- 描述 -->
+        <view class="desc">
+          <view wx:for="{{desc}}" wx:key="name">
+            <view class="desc-title">
+              <aqi name="{{item.icon}}" />
+              <view>{{item.name}}: {{item.scope}}</view>
+            </view>
+            <view>{{item.desc}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </drawer>
+</match-media>
