@@ -56,7 +56,12 @@
     </view>
 
     <!-- 详细的天气信息 -->
-    <scroll-view scroll-y class="weather-detail-content">
+    <scroll-view
+      scroll-y
+      class="weather-detail-content"
+      enhanced="{{true}}"
+      show-scrollbar="{{false}}"
+    >
       <match-media max-width="700">
         <!-- 预警, 宽度小于 700 显示 -->
         <alert
@@ -72,7 +77,7 @@
       </match-media>
       <match-media min-width="700">
         <!-- 预警, 宽度大于 700 显示 -->
-        <scroll-view scroll-x enable-flex class="alert-container">
+        <scroll-view scroll-x enable-flex class="alert-container" wx:if="{{warings.length !== 0}}">
           <view
             class="alert alert-width-700"
             wx:for="{{warings}}"
@@ -98,7 +103,12 @@
       <card card-class="card-1">
         <view>
           <view class="title">小时概述</view>
-          <scroll-view scroll-x class="hourly-scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
+          <scroll-view
+            scroll-x
+            class="hourly-scroll"
+            show-scrollbar="{{false}}"
+            enhanced="{{true}}"
+          >
             <view class="hours">
               <view class="hours-item" wx:for="{{hours}}" wx:key="index">
                 <!-- 天气时间 -->

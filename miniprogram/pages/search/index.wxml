@@ -41,21 +41,47 @@
   </view>
 </view>
 
-<drawer isOpen="{{isOpen}}" placement="{{isPC ? 'right' : 'bottom'}}" bind:closeDrawer="closeDrawer">
-  <scroll-view class="cities" scroll-y enhanced="{{true}}" show-scrollbar="{{false}}">
-    <view class="title">搜索结果</view>
-    <view
-      wx:for="{{search}}"
-      wx:key="index"
-      class="city-container"
-      bindtap="GeoSelect"
-      data-index="{{index}}"
-    >
-      <view>
-        <view class="city-name">{{item.title}}</view>
-        <view class="city-detail">{{item.province}}, {{item.city}}, {{item.district}}</view>
-      </view>
-      <common name="enter" />
+<match-media min-width="700">
+  <drawer isOpen="{{isOpen}}" placement="right" bind:closeDrawer="closeDrawer">
+    <view class="cities cities-right">
+      <view class="title">搜索结果</view>
+      <scroll-view class="cities-item" scroll-y enhanced="{{true}}" show-scrollbar="{{false}}">
+        <view
+          wx:for="{{search}}"
+          wx:key="index"
+          class="city-container"
+          bindtap="GeoSelect"
+          data-index="{{index}}"
+        >
+          <view>
+            <view class="city-name">{{item.title}}</view>
+            <view class="city-detail">{{item.province}}, {{item.city}}, {{item.district}}</view>
+          </view>
+          <common name="enter" />
+        </view>
+      </scroll-view>
     </view>
-  </scroll-view>
-</drawer>
+  </drawer>
+</match-media>
+<match-media max-width="700">
+  <drawer isOpen="{{isOpen}}" placement="bottom" bind:closeDrawer="closeDrawer">
+    <view class="cities cities-bottom">
+      <view class="title">搜索结果</view>
+      <scroll-view class="cities-item" scroll-y enhanced="{{true}}" show-scrollbar="{{false}}">
+        <view
+          wx:for="{{search}}"
+          wx:key="index"
+          class="city-container"
+          bindtap="GeoSelect"
+          data-index="{{index}}"
+        >
+          <view>
+            <view class="city-name">{{item.title}}</view>
+            <view class="city-detail">{{item.province}}, {{item.city}}, {{item.district}}</view>
+          </view>
+          <common name="enter" />
+        </view>
+      </scroll-view>
+    </view>
+  </drawer>
+</match-media>

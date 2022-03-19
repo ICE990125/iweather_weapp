@@ -64,8 +64,13 @@
 }
 
 /* 城市建议弹窗 */
-.cities {
+.cities-right .cites-item {
   height: 100%;
+}
+
+.cities-bottom .cities-item {
+  /* 字体+padding */
+  max-height: calc(80vh - 1.8em - 20px);
 }
 
 .cities .title {

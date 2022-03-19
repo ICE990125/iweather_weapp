@@ -1,5 +1,4 @@
 .drawer-container {
-  transition-delay: 300ms;
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -13,6 +12,7 @@
 }
 
 .drawer-container.bottom.drawer-close {
+  transition-delay: 600ms;
   height: 0;
 }
 
@@ -28,6 +28,7 @@
 }
 
 .drawer-container.right.drawer-close {
+  transition-delay: 600ms;
   width: 0;
 }
 
@@ -38,7 +39,7 @@
 /* 蒙层 */
 .drawer-mask {
   background-color: rgba(0, 0, 0, 0.3);
-  transition: opacity 300ms;
+  transition: opacity 600ms;
   width: 100%;
   height: 100%;
 }
@@ -56,7 +57,7 @@
 /* 内容 */
 .drawer-content {
   background-color: white;
-  transition: transform 300ms, opacity 300ms;
+  transition: transform 300ms, opacity 600ms;
   padding: 20px;
   position: absolute;
 }
