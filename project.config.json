@@ -1,7 +1,8 @@
 {
-    "description": "项目配置文件",
+    "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
     "packOptions": {
-        "ignore": []
+        "ignore": [],
+        "include": []
     },
     "setting": {
         "urlCheck": true,
@@ -39,22 +40,16 @@
         "minifyWXML": true,
         "showES6CompileOption": false,
         "useCompilerPlugins": false,
-        "ignoreUploadUnusedFiles": true
+        "ignoreUploadUnusedFiles": true,
+        "useStaticServer": true
     },
     "compileType": "miniprogram",
-    "libVersion": "2.23.1",
+    "libVersion": "2.24.0",
     "appid": "wx5892b47170d2c6e8",
-    "projectname": "weather",
+    "projectname": "iweather-mini",
     "miniprogramRoot": "miniprogram/",
     "cloudfunctionRoot": "cloudfunctions/",
-    "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
-    "watchOptions": {
-        "ignore": []
-    },
-    "debugOptions": {
-        "hidedInDevtools": []
-    },
-    "scripts": {},
+    "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
     "condition": {
         "plugin": {
             "list": []
@@ -68,5 +63,10 @@
         "miniprogram": {
             "list": []
         }
+    },
+    "srcMiniprogramRoot": "miniprogram/",
+    "editorSetting": {
+        "tabIndent": "insertSpaces",
+        "tabSize": 4
     }
 }

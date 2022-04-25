@@ -46,12 +46,16 @@
   font-weight: bold;
 }
 
-.cites-container,
-.history-container {
+.cites-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, 100px);
   justify-content: space-between;
   grid-gap: 10px;
+}
+
+.history-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .cites-item,
@@ -61,6 +65,12 @@
   line-height: 2.5em;
   background-color: #ebeef5;
   color: #909399;
+}
+
+.history-item {
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 0 10px;
 }
 
 /* 城市建议弹窗 */
