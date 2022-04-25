@@ -24,6 +24,15 @@
     <view class="title">历史记录</view>
     <view class="history-container">
       <view class="history-item" bindtap="current" wx:if="{{showCurrent}}">当前位置</view>
+      <view
+        class="history-item"
+        wx:for="{{history}}"
+        wx:key="index"
+        data-index="{{index}}"
+        bindtap="selectHistory"
+        >{{item.title}}</view
+      >
+      <view class="history-item" wx:if="{{history.length}}" bindtap="clearHistory">清空记录</view>
     </view>
   </view>
   <view class="hot-cities padding">
