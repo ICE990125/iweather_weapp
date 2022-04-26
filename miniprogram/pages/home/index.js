@@ -241,9 +241,9 @@ Page({
                     ...Weather,
                 });
             })
-            .catch(err => {
+            .catch(() => {
                 wx.showToast({
-                    title: err.message,
+                    title: '获取天气失败...',
                     icon: 'none',
                     duration: 2000,
                 });

@@ -81,9 +81,9 @@ Page({
                         isOpen: true,
                     });
                 })
-                .catch(err => {
+                .catch(() => {
                     wx.showToast({
-                        title: err.errMsg,
+                        title: '暂不支持...',
                         icon: 'none',
                         duration: 2000,
                     });
