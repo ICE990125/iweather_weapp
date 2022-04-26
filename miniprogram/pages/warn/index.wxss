@@ -24,3 +24,18 @@
   align-items: center;
   max-width: 400px;
 }
+
+
+button[class="btn-remind"]:after{
+  border: 0;
+}
+
+.btn-remind {
+  margin-top: 3em;
+  font-size: 1em;
+}
+
+.share-img-canvas {
+  position: absolute;
+  top: -100%;
+}

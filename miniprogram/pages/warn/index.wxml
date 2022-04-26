@@ -1,11 +1,5 @@
 <!-- 天气预警页面 -->
-
-<nav-bar
-  navLeftIcon="{{navIcon}}"
-  navTitle="预警详情"
-  bind:left="back"
-  textColor="{{color}}"
-/>
+<nav-bar navLeftIcon="{{navIcon}}" navTitle="预警详情" bind:left="back" textColor="{{color}}" />
 
 <view
   class="container"
@@ -17,5 +11,18 @@
     </view>
     <view class="warn">{{warn}}</view>
     <view>{{desc}}</view>
+    <button
+      class="btn-remind"
+      open-type="share"
+      disabled="{{!isReady}}"
+      loading="{{!isReady}}"
+      style="color: {{bgColor}}; background-color: {{color}};"
+    >
+      提醒好友
+    </button>
   </view>
+</view>
+
+<view class="share-img-canvas">
+  <share-img options="{{options}}" bind:isReady="ready"></share-img>
 </view>

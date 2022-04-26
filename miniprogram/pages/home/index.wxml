@@ -198,3 +198,7 @@
 <view wx:else class="loading">
   <loading />
 </view>
+
+<view class="share-img-canvas" wx:if="{{isReady}}">
+  <share-img options="{{imgOptions}}" bind:isReady="ready"></share-img>
+</view>
