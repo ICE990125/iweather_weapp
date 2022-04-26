@@ -7,6 +7,7 @@
     "grid-swiper": "/components/grid-swiper/index",
     "sun-moon": "/components/sun-moon/index",
     "alert": "/components/alert/index",
-    "weather-bg": "/components/weather-bg/index"
+    "weather-bg": "/components/weather-bg/index",
+    "share-img": "/components/charts/share-img/index"
   }
 }

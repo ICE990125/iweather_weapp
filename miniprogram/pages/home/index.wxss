@@ -228,3 +228,8 @@
     border-top-right-radius: 0;
   }
 }
+
+.share-img-canvas {
+  position: absolute;
+  top: -100%;
+}
