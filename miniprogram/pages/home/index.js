@@ -51,8 +51,9 @@ Page({
 
         // 如果当前页面是跳转过来的
         if (options.lat && options.lon) {
-            const location = `${options.lon},${options.lat}`;
-            this.getQweather(location, {
+            this.getQweather({
+                latitude: options.lat,
+                longitude: options.lon,
                 city: options.name,
                 address: typeof options.address === 'undefined' ? '' : options.address,
                 isCurrent: false,
@@ -72,7 +73,9 @@ Page({
                 .addressInfo()
                 .then(res => {
                     const { latitude, longitude, address, city } = res;
-                    this.getQweather(`${longitude},${latitude}`, {
+                    this.getQweather({
+                        latitude,
+                        longitude,
                         city,
                         address,
                         isCurrent: true,
@@ -83,9 +86,10 @@ Page({
                 });
         }
     },
-    getQweather(location, kwargs) {
+    getQweather(kwargs) {
         // 获取天气
         // app.globalData.qweather.setMockStatus(false);
+        const location = `${kwargs.longitude},${kwargs.latitude}`;
         app.globalData.qweather
             .getAllweather(location)
             .then(res => {
@@ -94,6 +98,8 @@ Page({
                 // 城市信息
                 Weather.city = kwargs.city;
                 Weather.address = kwargs.address;
+                Weather.latitude = kwargs.latitude;
+                Weather.longitude = kwargs.longitude;
 
                 // 当前天气
                 const now = res.now;
@@ -241,9 +247,14 @@ Page({
                     ...Weather,
                 });
             })
-            .catch(() => {
+            .catch(err => {
+                const logManager = wx.getRealtimeLogManager();
+                const logger = logManager.tag('getWeatherFail');
+                logger.error('w', err);
+
+                let e = typeof err === 'string' ? err : '获取天气失败';
                 wx.showToast({
-                    title: '获取天气失败...',
+                    title: e,
                     icon: 'none',
                     duration: 2000,
                 });
