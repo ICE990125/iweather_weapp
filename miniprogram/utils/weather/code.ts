@@ -1,4 +1,4 @@
-export const qWeatherCode: Record<number | string, string> = {
+export const weatherType: Record<number | string, string> = {
   100: 'sun', // 晴
   101: 'cloudy', // 多云
   102: 'cloudy', // 少云
