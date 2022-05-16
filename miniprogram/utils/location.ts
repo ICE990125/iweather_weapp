@@ -6,7 +6,7 @@ class Location implements LocationInterface {
     readonly _address?: string
   ) {}
 
-  get locationString(): string {
+  get toString(): string {
     return `${this._longitude},${this._latitude}`
   }
 }
