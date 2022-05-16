@@ -3,4 +3,6 @@ interface LocationInterface {
   _longitude: number
   _city?: string
   _address?: string
+
+  get toString(): string
 }
