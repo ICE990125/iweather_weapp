@@ -1,12 +1,16 @@
 import Location from '../../utils/location'
-import qweather from '../../utils/weather/weather'
+
+const app = getApp()
 
 Page({
   data: {},
   onLoad() {
     const loc = new Location(20, 110)
-    qweather.getAllweather(loc).then((res) => {
+    app.globalData.weather.getAllweather(loc).then((res: any) => {
       console.log(res)
+      this.setData({
+        weather: res,
+      })
     })
   },
 })
