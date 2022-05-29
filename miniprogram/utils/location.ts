@@ -1,14 +1,30 @@
-class Location implements LocationInterface {
+export default class Location implements ILocation {
   constructor(
-    readonly _latitude: number,
-    readonly _longitude: number,
-    readonly _city?: string,
-    readonly _address?: string
+    private options: {
+      latitude: number;
+      longitude: number;
+      city?: string;
+      address?: string;
+    }
   ) {}
 
-  get toString(): string {
-    return `${this._longitude},${this._latitude}`
+  get latitude(): number {
+    return this.options.latitude;
+  }
+
+  get longitude(): number {
+    return this.options.longitude;
+  }
+
+  get city(): string | undefined {
+    return this.options.city;
+  }
+
+  get address(): string | undefined {
+    return this.options.address;
+  }
+
+  toString(): string {
+    return `${this.options.longitude},${this.options.latitude}`;
   }
 }
-
-export default Location
