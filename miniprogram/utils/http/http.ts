@@ -1,51 +1,51 @@
-// 单例模式...
+export type Methods =
+  | 'GET'
+  | 'OPTIONS'
+  | 'HEAD'
+  | 'POST'
+  | 'PUT'
+  | 'DELETE'
+  | 'TRACE'
+  | 'CONNECT'
+  | undefined;
 
-class Http {
-  private static singleton: Http
-  private constructor() {}
+export default class Http {
+  private _mock: boolean;
+  private _baseUrl: string;
 
-  private _mock: boolean = true
-
-  static getInstance(): Http {
-    if (!Http.singleton) Http.singleton = new Http()
-
-    return Http.singleton
+  constructor(options: { baseUrl: string }) {
+    this._mock = true;
+    this._baseUrl = options.baseUrl;
   }
 
   set mock(m: boolean) {
-    this._mock = m
+    this._mock = m;
   }
 
-  requests({
-    url,
-    data,
-    method = 'GET',
-  }: {
-    url: string
-    data?: object
-    method?: methods
+  request(options: {
+    url: string;
+    data?: object;
+    method?: Methods;
   }): Promise<any> {
     return new Promise((resolve, reject) => {
       wx.request({
-        url: url,
-        method: method,
+        url: `${this._baseUrl}${options.url}`,
+        method: options.method ?? 'GET',
         data: Object.assign(
           {
             mock: this._mock,
           },
-          data
+          options.data
         ),
         dataType: 'json',
         timeout: 5000,
         success(res: WechatMiniprogram.IAnyObject) {
-          resolve(res.data)
+          resolve(res.data);
         },
         fail(err: WechatMiniprogram.GeneralCallbackResult) {
-          reject(err.errMsg)
+          reject(err.errMsg);
         },
-      })
-    })
+      });
+    });
   }
 }
-
-export default Http.getInstance()
