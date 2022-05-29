@@ -1,16 +1,15 @@
-// 策略...
+import Location from '../../location';
 
+// 策略模式...
 export abstract class Strategies {
-  abstract getAqi(loc: LocationInterface): Promise<any>
-  abstract getSunTime(loc: LocationInterface, date?: string): Promise<any>
-  abstract getMoonTime(loc: LocationInterface, date?: string): Promise<any>
-  abstract getDisasterWaring(loc: LocationInterface): Promise<any>
-  abstract getLivingIndices(loc: LocationInterface, type: number): Promise<any>
-  abstract getPrecipitationInTheNextTwoHours(
-    loc: LocationInterface
-  ): Promise<any>
-  abstract getWeatherInTheNext24Hours(loc: LocationInterface): Promise<any>
-  abstract getWeatherInTheNext7Days(loc: LocationInterface): Promise<any>
-  abstract getNowWeather(loc: LocationInterface): Promise<any>
-  abstract getAllweather(loc: LocationInterface): Promise<any>
+  abstract getAir(loc: Location): Promise<any>;
+  abstract getSunTime(loc: Location, date?: string): Promise<any>;
+  abstract getMoonTime(loc: Location, date?: string): Promise<any>;
+  abstract getDisasterWarning(loc: Location): Promise<any>;
+  abstract getLivingIndices(loc: Location, type: number): Promise<any>;
+  abstract getPrecipitationInTheNextTwoHours(loc: Location): Promise<any>;
+  abstract getWeatherByHours(loc: Location): Promise<any>;
+  abstract getWeatherByDays(loc: Location): Promise<any>;
+  abstract getNowWeather(loc: Location): Promise<any>;
+  abstract getAllweather(loc: Location): Promise<any>;
 }

@@ -1,18 +1,17 @@
-import * as w from '../models/index'
-import http from '../../http/http'
-import { qWeatherCode } from '../../http/code'
-import Location from '../../location'
-import { Strategies } from './base'
+import Http from '../../http/http';
+import Location from '../../location';
+import { Strategies } from './base';
+import moment from 'moment';
 
 // 处理请求结果
 class QWeatherHandler {
-  static aqiHandler(res: Record<string, any>): w.Aqi {
-    return new w.Aqi({
+  static aqiHandler(res: Record<string, any>): IAir {
+    return {
       dateTime: new Date(res.pubTime),
       aqi: Number(res.aqi),
       level: Number(res.level),
       category: res.category,
-      component: {
+      components: {
         pm10: Number(res.pm10),
         pm2p5: Number(res.pm2p5),
         no2: Number(res.no2),
@@ -20,424 +19,332 @@ class QWeatherHandler {
         co: Number(res.co),
         o3: Number(res.o3),
       },
-    })
+    };
   }
 
-  static sunHandler(res: Record<string, any>): w.Sun {
-    return new w.Sun({
+  static sunHandler(res: Record<string, any>): ISun {
+    return {
       sunRise: new Date(res.sunrise),
       sunSet: new Date(res.sunset),
-    })
+    };
   }
 
-  static moonHandler(res: Record<string, any>): w.Moon {
-    return new w.Moon({
+  static moonHandler(res: Record<string, any>): IMoon {
+    return {
       moonRise: new Date(res.moonrise),
       moonSet: new Date(res.moonset),
-      moonPhase: res.moonPhase.map((e: Record<string, any>): w.MoonPhase => {
-        return new w.MoonPhase({
+      moonPhase: res.moonPhase.map((e: Record<string, any>): IMoonPhase => {
+        return {
           dateTime: new Date(e.fxTime),
           value: Number(e.value),
           name: e.name,
           illumination: Number(e.illumination),
           icon: e.icon,
-        })
+        };
       }),
-    })
+    };
   }
 
-  static warningHandler(res: Array<Record<string, any>>): Array<w.Warning> {
-    return res.map((e: Record<string, any>): w.Warning => {
-      return new w.Warning({
-        id: e.id,
-        dateTime: new Date(e.pubTime),
-        description: e.text,
-        title: e.title,
-        status: e.status,
-        level: e.level,
-        type: Number(e.type),
-        typeName: e.typeName,
-        sender: e.sender ?? '暂无发布单位',
-      })
-    })
+  static warningHandler(
+    res: Array<Record<string, any>> | undefined
+  ): Array<IWarning> {
+    return typeof res !== 'undefined'
+      ? res.map((e: Record<string, any>): IWarning => {
+          return {
+            dateTime: new Date(e.pubTime),
+            start: new Date(e.startTime),
+            end: new Date(e.endTime),
+            description: e.text,
+            title: e.title,
+            status: e.status,
+            level: e.level,
+            type: e.type,
+            typeName: e.typeName,
+            sender: e.sender ?? '暂无发布单位',
+          };
+        })
+      : [];
   }
 
-  static indicesHandler(res: Array<Record<string, any>>): Array<w.LivingIndex> {
-    return res.map((e: Record<string, any>): w.LivingIndex => {
-      return new w.LivingIndex({
+  static indicesHandler(res: Array<Record<string, any>>): Array<ILivingIndex> {
+    return res.map((e: Record<string, any>): ILivingIndex => {
+      return {
         type: Number(e.type),
         name: e.name.replace(/指数/, ''),
         level: Number(e.level),
         category: e.category,
         description: e.text,
-      })
-    })
+      };
+    });
   }
 
-  static precipHandler(res: Record<string, any>): FuturePrecipitationInterface {
+  static precipHandler(res: Record<string, any>): IFuturePrecip {
     const noPrecip: boolean = res.minutely.every(
       (e: Record<string, any>) => e.precip === '0.0'
-    )
+    );
 
     return {
       summary: res.summary,
       minutely: noPrecip
-        ? []
-        : res.minutely.map((e: Record<string, any>): w.Precipitation => {
-            return new w.Precipitation({
+        ? [] // 未降雨
+        : res.minutely.map((e: Record<string, any>): IPrecip => {
+            return {
               dateTime: new Date(e.fxTime),
               precip: parseFloat(e.precip),
               type: e.type,
-            })
+            };
           }),
-    }
+    };
   }
 
-  static hourlyHandler(res: Record<string, any>): Array<w.WeatherItem> {
-    return res.map((e: Record<string, any>): w.WeatherItem => {
-      return new w.WeatherItem({
+  static hourlyHandler(res: Record<string, any>): Array<IWeatherItem> {
+    return res.map((e: Record<string, any>): IWeatherItem => {
+      return {
         dateTime: new Date(e.fxTime),
-        main: {
-          temperature: Number(e.temp),
-          humidity: {
-            name: '湿度',
-            value: Number(e.humidity),
-            unit: '%',
-          },
-          precipitation: parseFloat(e.precip),
-          pressure: {
-            name: '大气压',
-            value: Number(e.pressure),
-            unit: 'hPa',
-          },
+        temperature: {
+          day: Number(e.temp),
         },
-        weather: {
-          description: e.text,
-          icon: e.icon,
-        },
+        humidity: Number(e.humidity),
+        precip: parseFloat(e.precip),
+        pressure: Number(e.pressure),
+        description: e.text,
+        icon: e.icon,
         wind: {
           wind360: Number(e.wind360),
           windDir: e.windDir,
           windScale: e.windScale,
-          windSpeed: {
-            name: '风速',
-            value: Number(e.windSpeed),
-            unit: 'km/h',
-          },
+          windSpeed: Number(e.windSpeed),
         },
-        clouds: {
-          name: '云量',
-          value: Number(e.cloud),
-          unit: '%',
-        },
-        dewPoint: {
-          name: '露点温度',
-          value: Number(e.dew),
-          unit: '℃',
-        },
+        clouds: Number(e.cloud),
+        dewPoint: Number(e.dew),
         pop: Number(e.pop),
-      })
-    })
+      };
+    });
   }
 
-  static dailyHandler(res: Record<string, any>): DailyInterface {
-    let temp: number = 0
-    const maxTemps: Array<number> = [],
-      minTemps: Array<number> = []
+  static dailyHandler(res: Record<string, any>): Array<IDailyItem> {
+    return res.map((e: Record<string, any>): IDailyItem => {
+      return {
+        dateTime: new Date(e.fxDate),
+        sun: {
+          sunRise: new Date(`${e.fxDate} ${e.sunrise}`),
+          sunSet: new Date(`${e.fxDate} ${e.sunset}`),
+        },
+        moon: {
+          moonRise: new Date(`${e.fxDate} ${e.moonrise}`),
+          moonSet: new Date(`${e.fxDate} ${e.moonset}`),
+          moonPhase: {
+            icon: e.moonPhaseIcon,
+            name: e.moonPhase,
+          },
+        },
+        temperature: {
+          max: e.tempMax,
+          min: e.tempMin,
+        },
+        dayIcon: e.iconDay,
+        dayDesc: e.textDay,
+        dayWind: {
+          wind360: Number(e.wind360Day),
+          windDir: e.windDirDay,
+          windScale: e.windScaleDay,
+          windSpeed: Number(e.windSpeedDay),
+        },
+        nightIcon: e.iconNight,
+        nightDesc: e.textNight,
+        nightWind: {
+          wind360: Number(e.wind360Night),
+          windDir: e.windDirNight,
+          windScale: e.windScaleNight,
+          windSpeed: Number(e.windSpeedNight),
+        },
+        humidity: Number(e.humidity),
+        precip: parseFloat(e.precip),
+        pressure: Number(e.pressure),
+        visibility: Number(e.vis),
+        clouds: Number(e.cloud),
+        uvIndex: Number(e.uvIndex),
+      };
+    });
+  }
 
-    const r: Array<w.DailyWeatherItem> = res.map(
-      (e: Record<string, any>): w.DailyWeatherItem => {
-        const d = new Date(e.fxDate)
-        const max = Number(e.tempMax),
-          min = Number(e.tempMin)
-        temp += max + min
-        maxTemps.push(max)
-        minTemps.push(min)
-
-        return new w.DailyWeatherItem({
-          dateTime: d,
-          sun: {
-            sunrise: new Date(e.sunrise),
-            sunset: new Date(e.sunset),
-          },
-          moon: {
-            moonrise: new Date(e.moonrise),
-            moonset: new Date(e.moonset),
-            moonPhase: e.moonPhase,
-            moonPhaseIcon: e.moonPhaseIcon,
-          },
-          temperature: {
-            maxTemp: max,
-            minTemp: min,
-          },
-          day: {
-            icon: e.iconDay,
-            description: e.textDay,
-            wind360: Number(e.wind360Day),
-            windDir: e.windDirDay,
-            windScale: e.windScaleDay,
-            windSpeed: {
-              name: '风速',
-              value: Number(e.windSpeedDay),
-              unit: 'km/h',
-            },
-          },
-          night: {
-            icon: e.iconNight,
-            description: e.textNight,
-            wind360: Number(e.wind360Night),
-            windDir: e.windDirNight,
-            windScale: e.windScaleNight,
-            windSpeed: {
-              name: '风速',
-              value: Number(e.windSpeedNight),
-              unit: 'km/h',
-            },
-          },
-          humidity: {
-            name: '空气湿度',
-            value: Number(e.humidity),
-            unit: '%',
-          },
-          precipitation: parseFloat(e.precip),
-          pressure: {
-            name: '大气压强',
-            value: Number(e.pressure),
-            unit: 'hPa',
-          },
-          visibility: {
-            name: '能见度',
-            value: Number(e.vis),
-            unit: 'km',
-          },
-          clouds: {
-            name: '大气压力',
-            value: Number(e.cloud),
-            unit: 'hPa',
-          },
-          uvIndex: Number(e.uvIndex),
-        })
-      }
-    )
-
+  static nowWeatherHandler(res: Record<string, any>): IWeatherItem {
     return {
-      daily: r,
-      average: temp / (r.length * 2),
-      max: Math.max(...maxTemps),
-      min: Math.min(...minTemps),
-    }
-  }
-
-  static nowWeatherHandler(res: Record<string, any>): w.WeatherItem {
-    return new w.WeatherItem({
       dateTime: new Date(res.obsTime),
-      main: {
-        temperature: Number(res.temp),
-        feelsLike: Number(res.feelsLike),
-        humidity: {
-          name: '空气湿度',
-          value: Number(res.humidity),
-          unit: '%',
-        },
-        precipitation: Number(res.precip),
-        pressure: {
-          name: '大气压力',
-          value: Number(res.pressure),
-          unit: 'hPa',
-        },
+      temperature: {
+        day: Number(res.temp),
       },
-      weather: {
-        description: res.text,
-        icon: res.icon,
+      feelsLike: {
+        day: Number(res.feelsLike),
       },
+      humidity: Number(res.humidity),
+      precip: Number(res.precip),
+      pressure: Number(res.pressure),
+      description: res.text,
+      icon: res.icon,
       wind: {
         wind360: Number(res.wind360),
         windDir: res.windDir,
         windScale: res.windScale,
-        windSpeed: {
-          name: '风速',
-          value: Number(res.windSpeed),
-          unit: 'km/h',
-        },
+        windSpeed: Number(res.windSpeed),
       },
-      visibility: {
-        name: '能见度',
-        value: Number(res.vis),
-        unit: 'km',
-      },
-      clouds: {
-        name: '云量',
-        value: Number(res.cloud),
-        unit: '%',
-      },
-      dewPoint: {
-        name: '露点温度',
-        value: Number(res.dew),
-        unit: '°',
-      },
-    })
+      visibility: Number(res.vis),
+      clouds: Number(res.cloud),
+      dewPoint: Number(res.dew),
+    };
   }
 }
 
 export default class QWeatherStrategies extends Strategies {
+  private http: Http;
+
   constructor(
-    private _key: string,
-    private _baseUrl: string = 'https://devapi.qweather.com/v7/'
+    private key: string,
+    private baseUrl: string = 'https://devapi.qweather.com/v7/'
   ) {
-    super()
+    super();
+
+    this.http = new Http({
+      baseUrl: this.baseUrl,
+    });
   }
 
-  requests({ url, data }: { url: string; data: object }): Promise<any> {
-    return new Promise((resolve, reject) => {
-      http
-        .requests({
-          url: `${this._baseUrl}${url}`,
-          data: Object.assign(
-            {
-              key: this._key,
-            },
-            data
-          ),
-        })
-        .then((res) => {
-          if (res.code === '200') {
-            resolve(res)
-          } else {
-            reject(qWeatherCode[res.code] ?? '其他请求错误')
-          }
-        })
-    })
+  request(options: { url: string; data: object }): Promise<any> {
+    return this.http.request({
+      url: options.url,
+      data: Object.assign(
+        {
+          key: this.key,
+        },
+        options.data
+      ),
+    });
   }
 
   // 获取 AQI 指数
-  getAqi(loc: Location): Promise<w.Aqi> {
-    return this.requests({
+  getAir(loc: Location): Promise<IAir> {
+    return this.request({
       url: 'air/now',
-      data: { location: loc.toString },
+      data: { location: loc.toString() },
     }).then((res) => {
-      return QWeatherHandler.aqiHandler(res.now)
-    })
+      return QWeatherHandler.aqiHandler(res.now);
+    });
   }
 
   // 获取日出日落时间
-  getSunTime(loc: Location, date?: string): Promise<w.Sun> {
-    return this.requests({
+  getSunTime(loc: Location, date_?: string): Promise<ISun> {
+    return this.request({
       url: 'astronomy/sun',
       data: {
-        location: loc.toString,
-        date: date ?? new Date().format('yyyyMMdd'),
+        location: loc.toString(),
+        date: date_ ?? moment(Date.now()).format('YYYYMMDD'),
       },
     }).then((res) => {
-      return QWeatherHandler.sunHandler(res)
-    })
+      return QWeatherHandler.sunHandler(res);
+    });
   }
 
   // 获取月升月落
-  getMoonTime(loc: Location, date?: string): Promise<w.Moon> {
-    return this.requests({
+  getMoonTime(loc: Location, date_?: string): Promise<IMoon> {
+    return this.request({
       url: 'astronomy/moon',
       data: {
-        location: loc.toString,
-        date: date || new Date().format('yyyyMMdd'),
+        location: loc.toString(),
+        date: date_ ?? moment(Date.now()).format('YYYYMMDD'),
       },
     }).then((res) => {
-      return QWeatherHandler.moonHandler(res)
-    })
+      return QWeatherHandler.moonHandler(res);
+    });
   }
 
   // 获取灾害预警
-  getDisasterWaring(loc: Location): Promise<Array<w.Warning>> {
-    return this.requests({
+  getDisasterWarning(loc: Location): Promise<Array<IWarning>> {
+    return this.request({
       url: 'warning/now',
-      data: { location: loc.toString },
+      data: { location: loc.toString() },
     }).then((res) => {
-      return QWeatherHandler.warningHandler(res.warning)
-    })
+      return QWeatherHandler.warningHandler(res.warning);
+    });
   }
 
   // 获取生活指数, 默认获取全部生活指数
-  getLivingIndices(
-    loc: Location,
-    type: number = 0
-  ): Promise<Array<w.LivingIndex>> {
-    return this.requests({
+  getLivingIndices(loc: Location, type = 0): Promise<Array<ILivingIndex>> {
+    return this.request({
       url: 'indices/1d',
       data: {
-        location: loc.toString,
+        location: loc.toString(),
         type,
       },
     }).then((res) => {
-      return QWeatherHandler.indicesHandler(res.daily)
-    })
+      return QWeatherHandler.indicesHandler(res.daily);
+    });
   }
 
   // 获取 2 小时降水
-  getPrecipitationInTheNextTwoHours(
-    loc: Location
-  ): Promise<FuturePrecipitationInterface> {
-    return this.requests({
+  getPrecipitationInTheNextTwoHours(loc: Location): Promise<IFuturePrecip> {
+    return this.request({
       url: 'minutely/5m',
-      data: { location: loc.toString },
+      data: { location: loc.toString() },
     }).then((res) => {
-      return QWeatherHandler.precipHandler(res)
-    })
+      return QWeatherHandler.precipHandler(res);
+    });
   }
 
   // 获取 24 小时天气预报
-  getWeatherInTheNext24Hours(loc: Location): Promise<Array<w.WeatherItem>> {
-    return this.requests({
+  getWeatherByHours(loc: Location): Promise<Array<IWeatherItem>> {
+    return this.request({
       url: 'weather/24h',
-      data: { location: loc.toString },
+      data: { location: loc.toString() },
     }).then((res) => {
-      return QWeatherHandler.hourlyHandler(res.hourly)
-    })
+      return QWeatherHandler.hourlyHandler(res.hourly);
+    });
   }
 
   // 获取未来 7 天天气预报
-  getWeatherInTheNext7Days(loc: Location): Promise<DailyInterface> {
-    return this.requests({
+  getWeatherByDays(loc: Location): Promise<Array<IDailyItem>> {
+    return this.request({
       url: 'weather/7d',
-      data: { location: loc.toString },
+      data: { location: loc.toString() },
     }).then((res) => {
-      return QWeatherHandler.dailyHandler(res.daily)
-    })
+      return QWeatherHandler.dailyHandler(res.daily);
+    });
   }
 
   // 获取实时天气预报
-  getNowWeather(loc: Location): Promise<w.WeatherItem> {
-    return this.requests({
+  getNowWeather(loc: Location): Promise<IWeatherItem> {
+    return this.request({
       url: 'weather/now',
-      data: { location: loc.toString },
+      data: { location: loc.toString() },
     }).then((res) => {
-      return QWeatherHandler.nowWeatherHandler(res.now)
-    })
+      return QWeatherHandler.nowWeatherHandler(res.now);
+    });
   }
 
   // 一键获取全部天气数据
-  getAllweather(loc: Location): Promise<w.WeatherInfo> {
+  getAllweather(loc: Location): Promise<IWeather> {
     return Promise.all([
-      this.getAqi(loc),
+      this.getAir(loc),
       this.getSunTime(loc),
       this.getMoonTime(loc),
-      this.getDisasterWaring(loc),
+      this.getDisasterWarning(loc),
       this.getLivingIndices(loc),
       this.getPrecipitationInTheNextTwoHours(loc),
-      this.getWeatherInTheNext24Hours(loc),
-      this.getWeatherInTheNext7Days(loc),
+      this.getWeatherByHours(loc),
+      this.getWeatherByDays(loc),
       this.getNowWeather(loc),
-    ]).then((values): w.WeatherInfo => {
-      return new w.WeatherInfo({
+    ]).then((values): IWeather => {
+      return {
         location: loc,
-        aqi: values[0],
+        air: values[0],
         sun: values[1],
         moon: values[2],
         waring: values[3],
         livingIndices: values[4],
-        precipitation: values[5],
-        next24h: values[6],
-        next7days: values[7],
+        precip: values[5],
+        hourly: values[6],
+        daily: values[7],
         now: values[8],
-      })
-    })
+      };
+    });
   }
 }
