@@ -2,6 +2,7 @@ import Http from '../../http/http';
 import Location from '../../location';
 import { Strategies } from './base';
 import moment from 'moment';
+import { qWeatherCode } from '../../http/code';
 
 // 处理请求结果
 class QWeatherHandler {
@@ -210,15 +211,25 @@ export default class QWeatherStrategies extends Strategies {
   }
 
   request(options: { url: string; data: object }): Promise<any> {
-    return this.http.request({
-      url: options.url,
-      data: Object.assign(
-        {
-          key: this.key,
-        },
-        options.data
-      ),
-    });
+    return this.http
+      .request({
+        url: options.url,
+        data: Object.assign(
+          {
+            key: this.key,
+          },
+          options.data
+        ),
+      })
+      .then((res: Record<string, any>) => {
+        // 由于没有响应拦截器, 这里凑合一下
+        if (res.code == '200') {
+          return Promise.resolve(res);
+        } else {
+          const c: keyof typeof qWeatherCode = res.code;
+          return Promise.reject(qWeatherCode[c]);
+        }
+      });
   }
 
   // 获取 AQI 指数
