@@ -3,10 +3,9 @@
  *************************/
 
 import qqMap from './qqmap-wx-jssdk';
-import { qqMapKey } from '../../appKey';
 import { qqMapCode } from '../http/code';
 
-class QQMap {
+export default class QQMap {
   private map: qqMap;
 
   constructor(key: string) {
@@ -74,6 +73,3 @@ class QQMap {
     });
   }
 }
-
-// 导出地图实例
-export default new QQMap(qqMapKey);
