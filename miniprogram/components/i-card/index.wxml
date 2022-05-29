@@ -1,0 +1,6 @@
+<view
+  class="i-card i-card-class"
+  style="{{outlined? 'border: 1px solid rgba(0,0,0,.12);': ''}}"
+>
+  <slot />
+</view>
