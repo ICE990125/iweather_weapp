@@ -1,0 +1,105 @@
+.cube-container {
+  width: 60px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cube-folding {
+  $size: 25px;
+
+  width: $size * 2;
+  height: $size * 2;
+  font-size: 0;
+
+  .leaf {
+    position: relative;
+    width: $size;
+    height: $size;
+    display: inline-block;
+
+    &::before {
+      content: '';
+      background-color: white;
+      position: absolute;
+      width: $size;
+      height: $size;
+      transform-origin: 100% 100%;
+      animation: folding 2.5s infinite linear both;
+    }
+  }
+
+  .leaf-2 {
+    transform: rotateZ(90deg);
+
+    &::before {
+      animation-delay: 0.3s;
+      background-color: #f2f2f2;
+    }
+  }
+
+  .leaf-3 {
+    transform: rotateZ(270deg);
+
+    &::before {
+      animation-delay: 0.9s;
+      background-color: #f2f2f2;
+    }
+  }
+
+  .leaf-4 {
+    transform: rotateZ(180deg);
+
+    &::before {
+      animation-delay: 0.6s;
+      background-color: #e6e6e6;
+    }
+  }
+}
+
+@keyframes folding {
+  0%,
+  10% {
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+
+  25%,
+  75% {
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+
+  90%,
+  100% {
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+// 文字
+.loading {
+  margin-top: 1em;
+
+  &::after {
+    content: '';
+    animation: dot 2s linear infinite;
+  }
+}
+
+@keyframes dot {
+  0% {
+    content: '';
+  }
+  25% {
+    content: '.';
+  }
+  50% {
+    content: '..';
+  }
+  75% {
+    content: '...';
+  }
+}

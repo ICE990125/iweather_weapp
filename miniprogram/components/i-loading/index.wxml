@@ -1,0 +1,9 @@
+<view class="cube-container">
+  <view class="cube-folding">
+    <span class="leaf-1 leaf"></span>
+    <span class="leaf-2 leaf"></span>
+    <span class="leaf-3 leaf"></span>
+    <span class="leaf-4 leaf"></span>
+  </view>
+  <text class="loading" style="color: {{textColor}};">{{text}}</text>
+</view>
