@@ -6,7 +6,7 @@
     },
     "miniprogramRoot": "miniprogram/",
     "compileType": "miniprogram",
-    "projectname": "ts-sass-demo",
+    "projectname": "iweather",
     "setting": {
         "useCompilerPlugins": [
             "typescript",
@@ -20,13 +20,18 @@
         "preloadBackgroundData": false,
         "minified": true,
         "autoAudits": false,
-        "uglifyFileName": false,
+        "uglifyFileName": true,
         "uploadWithSourceMap": true,
         "enhance": true,
         "useMultiFrameRuntime": true,
         "showShadowRootInWxmlPanel": true,
-        "packNpmManually": false,
-        "packNpmRelationList": [],
+        "packNpmManually": true,
+        "packNpmRelationList": [
+            {
+                "packageJsonPath": "./package.json",
+                "miniprogramNpmDistDir": "./miniprogram"
+            }
+        ],
         "minifyWXSS": true,
         "useStaticServer": true,
         "showES6CompileOption": false,

@@ -1,12 +1,14 @@
 {
-  "name": "miniprogram-ts-less-quickstart",
+  "name": "iweather",
   "version": "1.0.0",
-  "description": "",
+  "description": "小冰天气",
   "scripts": {},
   "keywords": [],
   "author": "",
   "license": "",
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.29.3"
+  },
   "devDependencies": {
     "miniprogram-api-typings": "^2.8.3-1"
   }
