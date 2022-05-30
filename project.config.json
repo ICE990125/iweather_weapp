@@ -20,7 +20,7 @@
         "preloadBackgroundData": false,
         "minified": true,
         "autoAudits": false,
-        "uglifyFileName": true,
+        "uglifyFileName": false,
         "uploadWithSourceMap": true,
         "enhance": true,
         "useMultiFrameRuntime": true,
