@@ -1,4 +1,4 @@
-.cube-container {
+.i-loading__container {
   width: 60px;
   height: auto;
   display: flex;
@@ -7,7 +7,7 @@
   justify-content: center;
 }
 
-.cube-folding {
+.cube-folding__container {
   $size: 25px;
 
   width: $size * 2;
@@ -80,7 +80,7 @@
 }
 
 // 文字
-.loading {
+.i-loading__text {
   margin-top: 1em;
 
   &::after {

@@ -1,5 +1,5 @@
 <view
-  class="i-card i-card-class {{outlined ? 'i-card-outlined' : ''}}"
+  class="i-card__container i-card-class {{outlined ? 'i-card-outlined' : ''}}"
   style="background: {{backgroundColor}}"
 >
   <slot />
