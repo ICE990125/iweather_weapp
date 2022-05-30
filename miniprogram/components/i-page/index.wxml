@@ -1,0 +1,11 @@
+<view class="i-page__container">
+  <swiper class="i-page__swiper" current="{{selected}}" bindchange="onChange">
+    <swiper-item wx:for="{{pages}}" wx:key="index">
+      <block wx:if="{{display[index]}}">
+        <slot name="{{item.key}}"></slot>
+      </block>
+    </swiper-item>
+  </swiper>
+
+  <slot name="tabbar"></slot>
+</view>
