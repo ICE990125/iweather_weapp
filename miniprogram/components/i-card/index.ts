@@ -10,6 +10,10 @@ Component({
       type: Boolean,
       value: false,
     },
+    backgroundColor: {
+      type: String,
+      value: '#fff',
+    },
   },
   methods: {},
 });

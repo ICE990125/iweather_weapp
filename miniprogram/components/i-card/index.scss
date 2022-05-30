@@ -3,4 +3,8 @@
   margin: 0.5em 0;
   padding: 15px;
   border-radius: 10px;
+
+  &.i-card-outlined {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+  }
 }
