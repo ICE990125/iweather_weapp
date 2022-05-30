@@ -1,0 +1,7 @@
+<view class="i-icon__container">
+  <image
+    src="{{imgUrl}}"
+    class="i-icon__image"
+    style="width: {{size}}px;height: {{size}}px;"
+  />
+</view>
