@@ -1,0 +1,11 @@
+.i-tabbar-item__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .i-tabbar-item__img {
+    height: 30px;
+    width: 30px;
+  }
+}

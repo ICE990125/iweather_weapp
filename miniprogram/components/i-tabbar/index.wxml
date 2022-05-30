@@ -1,0 +1,6 @@
+<view
+  bind:change="change"
+  class="i-tabbar__container {{shadow ? 'i-tabbar__shadow' :''}}"
+>
+  <slot></slot>
+</view>
