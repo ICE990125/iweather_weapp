@@ -2,6 +2,6 @@
   class="i-card__container i-card-class {{outlined ? 'i-card-outlined' : ''}}"
 >
   <view class="i-card-item__container" style="background: {{backgroundColor}}">
-    <slot />
+    <slot></slot>
   </view>
 </view>
