@@ -3,6 +3,7 @@ export default {
   like: './icons/like.svg',
   location: './icons/location.svg',
   user: './icons/user.svg',
+  search: './icons/search.svg',
 
   // 以下是填充图标
   home_fill: './icons/home_fill.svg',
