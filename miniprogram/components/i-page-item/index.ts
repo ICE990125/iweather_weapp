@@ -7,9 +7,5 @@ Component({
   properties: {
     key: String,
   },
-  lifetimes: {
-    ready() {
-      console.log('hello');
-    },
-  },
+  lifetimes: {},
 });

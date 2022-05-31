@@ -1,5 +1,3 @@
-<swiper-item>
-  <view class="i-page-item__container" id="i-page-item__container">
-    <slot></slot>
-  </view>
-</swiper-item>
+<view class="i-page-item__container">
+  <slot></slot>
+</view>

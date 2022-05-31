@@ -25,6 +25,7 @@ Component({
   },
   data: {
     children: <any>[],
+    nodes: <any>[],
     current: 0,
   },
   methods: {
@@ -47,6 +48,7 @@ Component({
 
       this.setData({
         children: nodes,
+        nodes: nodes.map((e) => e.data),
         current: this.data.selected,
       });
 

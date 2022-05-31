@@ -1,20 +1,13 @@
 Component({
-  // 启用多 slot 支持
-  options: {
-    multipleSlots: true,
-  },
   relations: {
     '../i-tabbar/index': {
       type: 'parent',
     },
   },
   properties: {
-    icon: {
-      // 目前仅支持 home | me | location | like
-      type: String,
-      value: '',
-    },
+    icon: String, // 目前仅支持 home | me | location | like
     name: String,
+    key: Number,
   },
   data: {
     active: false,

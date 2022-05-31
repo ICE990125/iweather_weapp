@@ -1,4 +1,5 @@
 <view bindtap="activate" class="i-tabbar-item__container">
+  <!-- 内置图标 -->
   <i-icon wx:if="{{icon}}" name="{{active ? icon + '_fill' : icon}}"></i-icon>
 
   <!-- 自定义图标 -->
@@ -7,5 +8,5 @@
     <slot wx:else name="active_icon"></slot>
   </block>
 
-  <text wx:if="name">{{name}}</text>
+  <text wx:if="{{name}}">{{name}}</text>
 </view>

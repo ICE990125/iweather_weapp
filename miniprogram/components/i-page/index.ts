@@ -6,6 +6,11 @@ Component({
   relations: {
     '../i-page-item/index': {
       type: 'child',
+      linked(target) {
+        const { pages } = this.data;
+        pages.push(target.data);
+        this.setData({ pages });
+      },
     },
     '../i-tabbar/index': {
       type: 'child',
@@ -25,16 +30,9 @@ Component({
   },
   data: {
     pages: <any>[],
-    display: <any>[], // 实现懒加载? ...emmm
   },
   methods: {
     onChange(e: any) {
-      const d = this.data.display;
-      d[e.detail.current] = true;
-
-      this.setData({
-        display: d,
-      });
       // 向父组件/页面传值, 方便修改 tabbar 的 current
       this.triggerEvent('change', { idx: e.detail.current });
     },
@@ -53,22 +51,10 @@ Component({
         }
       }
 
-      if (this.data.lazyRender) {
-        const d = new Array<boolean>(children.length);
-        d[this.data.selected] = true;
-
-        this.setData({
-          pages: children.map((e) => e.data), // 没太大用, 主要用来使用 wx:for 渲染 slot
-          display: d,
-        });
-      } else {
-        // 不需要懒加载的话全部都位都为 true
-        const d = new Array<boolean>(children.length).fill(true);
-
-        this.setData({
-          pages: children.map((e) => e.data),
-          display: d,
-        });
+      if (children.length == 0) {
+        console.error(
+          'i-page 必须配合具名插槽使用, 否则将存在渲染层错误(由 swiper 无子节点导致)'
+        );
       }
     },
   },
