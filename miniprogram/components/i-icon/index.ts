@@ -1,6 +1,7 @@
 import map from './map';
 
 Component({
+  externalClasses: ['i-icon-class'],
   properties: {
     name: {
       type: String,
