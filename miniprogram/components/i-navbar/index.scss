@@ -1,0 +1,33 @@
+.nav-bar__container {
+  z-index: 999;
+  width: 100%;
+
+  &.fixed {
+    position: fixed;
+  }
+
+  .nav-bar {
+    .nav-bar__title {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+
+      & > .navTitle {
+        font-weight: bold;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      & > .subTitle {
+        font-size: 0.6em;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
