@@ -1,6 +1,7 @@
 <view
   class="i-card__container i-card-class {{outlined ? 'i-card-outlined' : ''}}"
-  style="background: {{backgroundColor}}"
 >
-  <slot />
+  <view class="i-card-item__container" style="background: {{backgroundColor}}">
+    <slot />
+  </view>
 </view>
