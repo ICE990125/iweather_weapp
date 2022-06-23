@@ -1,0 +1,21 @@
+lockfileVersion: 5.4
+
+specifiers:
+  miniprogram-api-typings: ^3.4.6
+  moment: ^2.29.3
+
+dependencies:
+  moment: 2.29.3
+
+devDependencies:
+  miniprogram-api-typings: 3.4.6
+
+packages:
+
+  /miniprogram-api-typings/3.4.6:
+    resolution: {integrity: sha512-1/aAma9wWzu9KS8m/h4j43UHoKS+XO61kaUDdftnlgwEyBndr0jrPJf/gUzdZQOST0pkLWmF0IMotz+j/Nh5SQ==}
+    dev: true
+
+  /moment/2.29.3:
+    resolution: {integrity: sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw==}
+    dev: false
