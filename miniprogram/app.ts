@@ -6,7 +6,7 @@ import { getSystemInfo } from './utils/systemInfo';
 
 // import './utils/weather/test/index'; 测试用例
 
-App<IAppOption>({
+App({
   globalData: {},
   onLaunch() {
     // 目前仅支持 qweather

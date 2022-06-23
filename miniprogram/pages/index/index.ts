@@ -1,4 +1,8 @@
 Page({
   data: {},
-  onLoad() {},
+  onLoad() {
+    wx.showLoading({
+
+    })
+  },
 });

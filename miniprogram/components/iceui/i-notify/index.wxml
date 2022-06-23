@@ -1,3 +1,0 @@
-<view wx-if="{{show}}" class="i-notify__container" style="background: {{innerBackground}};">
-  <view style="color:{{color}};">{{message}}</view>
-</view>

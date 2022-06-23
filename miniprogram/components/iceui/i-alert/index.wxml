@@ -1,7 +1,0 @@
-<view
-  class="i-alert__container i-alert-class"
-  style="background-color: {{backgroundColor}};"
->
-  <i-icon i-icon-class="i-alert__icon" wx:if="{{icon_}}" name="{{icon_}}"></i-icon>
-  <view style="color: {{color}};" class="i-alert__message">{{message}}</view>
-</view>

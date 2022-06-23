@@ -1,3 +1,0 @@
-<view class="i-page-item__container">
-  <slot></slot>
-</view>

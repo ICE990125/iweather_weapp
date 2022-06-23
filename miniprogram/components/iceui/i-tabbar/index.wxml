@@ -1,8 +1,0 @@
-<view
-  bind:change="change"
-  class="i-tabbar__container {{shadow ? 'i-tabbar__shadow' :''}}"
->
-  <view wx:for="{{nodes}}" wx:key="index">
-    <slot name="slot-tabbar-item__{{item.key}}"></slot>
-  </view>
-</view>

@@ -1,8 +1,0 @@
-<view
-  class="nav-bar__container {{fixed? 'fixed' : ''}}"
-  style="padding-top:{{statusBarHeight}}px; color: {{color}}; background-color: {{backgroundColor}};"
->
-  <view class="nav-bar" style="height: {{navHeight}}px; width: {{navWidth}}px;">
-    <view class="nav-bar__title">{{title}} </view>
-  </view>
-</view>
