@@ -1,9 +1,4 @@
-/// <reference path="./wx/index.d.ts" />
+/// <reference path="weather.d.ts" />
+/// <reference path="../node_modules/miniprogram-api-typings/index.d.ts" />
 
-interface ILocation {}
-
-interface IAppOption {
-  globalData: {
-    [key: string]: any;
-  };
-}
+interface ILocation { }
