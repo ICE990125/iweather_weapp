@@ -4,12 +4,14 @@
   "description": "小冰天气",
   "scripts": {},
   "keywords": [],
-  "author": "",
-  "license": "",
+  "author": "ARCTURUS<1638330246@qq.com>",
+  "license": "MIT",
   "dependencies": {
-    "moment": "^2.29.3"
+    "iceui-weapp": "^1.0.1",
+    "iweather_icon_weapp": "^0.0.4",
+    "moment": "^2.29.4"
   },
   "devDependencies": {
-    "miniprogram-api-typings": "^3.4.6"
+    "miniprogram-api-typings": "^3.5.0"
   }
 }
