@@ -1,12 +1,10 @@
 {
-    "pages": [
-        "pages/test/test"
-    ],
-    "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "Weixin",
-        "navigationBarTextStyle": "black"
-    },
-    "sitemapLocation": "sitemap.json"
+  "pages": ["pages/index/index"],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
 }
